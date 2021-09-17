@@ -139,17 +139,27 @@ array<RegLoc, 3> Converter::findRegs(string expression, int numRegs){
             int location = substring.find(regList.at(j));
             if(location != string::npos){
                 struct RegLoc reg;
-                reg.reg = regList.at(j); 
+                reg.reg = findReg(expression, stringI, i); 
                 reg.loc = location;
                 regs[regsFound] = reg;
                 regsFound++;
                 i = location + 1;
                 stringI += location + 1; 
-                break;
             }
         }
     }
     return regs;
+}
+
+string Converter::findReg(string expression, int stringI, int i){
+    string substring = expression.substr(stringI, i+1);
+    for(int j = 95; j >= 0; j--){
+            int location = substring.find(regList.at(j));
+            if(location != string::npos){
+                return regList.at(j);
+            }
+        }
+    return "ERROR";
 }
 
 string Converter::add(string var1, string var2, string var3){ 

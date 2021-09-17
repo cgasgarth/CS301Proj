@@ -28,13 +28,14 @@ class Converter { //648 or A-51 in book
     string regAddress(string reg); //DONE, NEEDS VALIDATION
     string lineTakeIn(string expression);
     string lineTakeIn(string expression, int offset);
-    array<RegLoc, 3> findRegs(string expression, int numRegs);
-
+    array<RegLoc, 3> findRegs(string expression, int numRegs); //DONE, NEEDS VALIDATION
+    string findReg(string expression, int stringI, int i); //DONE, VALIDATED KINDA
+    
     //BEGIN MIPS COMMANDS
     string add(string reg1, string reg2, string reg3); //DONE, NEEDS VALIDATION
     string addi(string reg1, string reg2, int val);
     string sub(string reg1, string reg2, string reg3);
-    string mult(string reg1, string reg2); // multiply these two num, store in hi and low regs
+    string mult(string reg1, string reg2);
     string div(string reg1, string reg2);
     string mfhi(string reg1);
     string mflo(string reg1);
