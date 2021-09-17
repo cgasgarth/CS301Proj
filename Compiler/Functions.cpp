@@ -1,6 +1,8 @@
 #include <cctype>
 #include <string>
 #include <stdexcept>
+#include <iostream>
+#include <array>
 #include "Functions.h"
 
 using namespace std;
@@ -108,20 +110,54 @@ string Converter::regAddress(string reg){
 
 string Converter::lineTakeIn(string expression){
     string command; 
+    string binOut;
     for(int i = 0; i < expression.length(); i++){
         if(isspace(expression.at(i))){
             command = expression.substr(0, i);
             break;
         }
     }
-    return command;
+    if(command == "add"){
+        array<RegLoc, 3> registers = findRegs(expression, 3);
+        //binOut = add(registers[0].reg, registers[1].reg, registers[2].reg);
+        for(int i = 0; i < 3; i++){
+            cout << registers[i].reg << endl;
+        }
+        return binOut;
+    }
+    return "ERROR";
 }
+
+array<RegLoc, 3> Converter::findRegs(string expression, int numRegs){
+    array<RegLoc, 3> regs = {};
+    int stringI = 0;
+    int regsFound = 0;
+    string substring;
+    for(int i = 0; i <= expression.length(); i++){
+        substring = expression.substr(stringI, i);
+        for(int j = 0; j < 96; j++){
+            int location = substring.find(regList.at(j));
+            if(location != string::npos){
+                struct RegLoc reg;
+                reg.reg = regList.at(j); 
+                reg.loc = location;
+                regs[regsFound] = reg;
+                regsFound++;
+                i = location + 1;
+                stringI += location + 1; 
+                break;
+            }
+        }
+    }
+    return regs;
+}
+
 string Converter::add(string var1, string var2, string var3){ 
     string result = "000000";
     result += this->regAddress(var2);
     result += this->regAddress(var3);
     result += this->regAddress(var1);
-    result += "100000"; //0x20
+    result += "00000100000"; //00000 + 0x20
     return result; 
 }
 

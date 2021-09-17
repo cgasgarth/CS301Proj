@@ -16,6 +16,6 @@ int main(int argc, char** argv){
             cout << c.add("$zero", "$at", "$v0") << endl;
         }
     }
-    cout << c.lineTakeIn("add $s0, $s1, $s2") << endl;
+    cout << c.lineTakeIn("add $R0, $v0, $31") << endl;
     return 0;
 }
