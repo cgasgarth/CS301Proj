@@ -1,9 +1,9 @@
 #include <string>
 using namespace std;
-class Converter {
+class Converter { //648 or A-51 in book
     public:
-    int regAddress(string reg);
-    int add(string reg1, string reg2, string reg3);
-    int addi(string reg1, string reg2, int val);
-    int sub(string reg1, string reg2, string reg3);
-}
+    string regAddress(string reg);
+    string add(string reg1, string reg2, string reg3);
+    string addi(string reg1, string reg2, int val);
+    string sub(string reg1, string reg2, string reg3);
+};
