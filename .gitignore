@@ -1,8 +1,10 @@
 # Prerequisites
 *.d
 
-#makefile
+#Generated files, makefile
 Makefile
+TEST
+ASSEMBLE
 
 # Compiled Object files
 *.slo
