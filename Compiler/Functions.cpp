@@ -1,3 +1,4 @@
+#include <cctype>
 #include <string>
 #include <stdexcept>
 #include "Functions.h"
@@ -104,7 +105,18 @@ string Converter::regAddress(string reg){
     }
     return "ERROR";
 }
-string Converter::add(string var1, string var2, string var3){
+
+string Converter::lineTakeIn(string expression){
+    string command; 
+    for(int i = 0; i < expression.length(); i++){
+        if(isspace(expression.at(i))){
+            command = expression.substr(0, i);
+            break;
+        }
+    }
+    return command;
+}
+string Converter::add(string var1, string var2, string var3){ 
     string result = "000000";
     result += this->regAddress(var2);
     result += this->regAddress(var3);

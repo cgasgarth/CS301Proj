@@ -2,10 +2,10 @@
 using namespace std;
 class Converter { //648 or A-51 in book
     public:
-    string regAddress(string reg); //helper funtions
+    string regAddress(string reg); //DONE, NEEDS VALIDATION
     string lineTakeIn(string expression);
     string lineTakeIn(string expression, int offset);
-    string add(string reg1, string reg2, string reg3); //begin MIPS instuctions
+    string add(string reg1, string reg2, string reg3); //DONE, NEEDS VALIDATION
     string addi(string reg1, string reg2, int val);
     string sub(string reg1, string reg2, string reg3);
     string mult(string reg1, string reg2); // multiply these two num, store in hi and low regs

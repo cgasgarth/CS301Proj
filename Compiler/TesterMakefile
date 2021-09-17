@@ -9,12 +9,12 @@ CFLAGS = -Wall -g
 # ****************************************************
 # Targets needed to bring the executable up to date
 
-ASSEMBLE: Main.o Functions.o
-	$(CC) $(CFLAGS) -o ASSEMBLE Main.o Functions.o
+TEST: FunctionsTester.o Functions.o
+	$(CC) $(CFLAGS) -o TEST FunctionsTester.o Functions.o
 
 # The main.o target can be written more simply
 
-main.o: main.cpp Functions.h
-	$(CC) $(CFLAGS) -c main.cpp
+FunctionsTester.o: FunctionsTester.cpp Functions.h
+	$(CC) $(CFLAGS) -c FunctionsTester.cpp
 
 Functions.o: Functions.h
