@@ -145,14 +145,14 @@ vector<string> Converter::lineTakeIn(string expression){
         mflo(expression, out);
         return out;
     }
-    // if(command == "sll"){
-    //     sll(expression, out);
-    //     return out;
-    // }
-    // if(command == "srl"){
-    //     srl(expression, out);
-    //     return out;
-    // }
+    if(command == "sll"){
+        sll(expression, out);
+        return out;
+    }
+    if(command == "srl"){
+        srl(expression, out);
+        return out;
+    }
     // if(command == "lw"){
     //     lw(expression, out);
     //     return out;
@@ -314,5 +314,40 @@ void Converter::mflo(string expression, vector<string> & out){
     result += "0000000000";
     result += regAddress(registers[0].reg);
     result += "00000010010";
+    out.push_back(result);
+}
+
+void Converter::sll(string expression, vector<string> & out){
+    array<RegLoc, 3> registers = findRegs(expression, 1);
+    string result = "00000000000";
+    result += regAddress(registers[1].reg);
+    result += regAddress(registers[0].reg);
+    string immediate;
+    for(int i = (expression.length() - 1); i >= 0; i--){
+        if(isspace(expression.at(i))){
+            immediate = intToString(expression.substr(i, expression.length() - 1), 5);
+            break;
+        }
+    }
+    cout << immediate << endl;
+    result += immediate;
+    result += "000000";
+    out.push_back(result);
+}
+
+void Converter::srl(string expression, vector<string> & out){
+    array<RegLoc, 3> registers = findRegs(expression, 1);
+    string result = "00000000000";
+    result += regAddress(registers[1].reg);
+    result += regAddress(registers[0].reg);
+    string immediate;
+    for(int i = (expression.length() - 1); i >= 0; i--){
+        if(isspace(expression.at(i))){
+            immediate = intToString(expression.substr(i, expression.length() - 1), 5);
+            break;
+        }
+    }
+    result += immediate;
+    result += "000010";
     out.push_back(result);
 }
