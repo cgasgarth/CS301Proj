@@ -41,16 +41,16 @@ class Converter { //648 or A-51 in book
     void div(string expression, vector<string> & out); //DONE, VALIDATED KINDA
     void mfhi(string expression, vector<string> & out); //DONE, VALIDATED KINDA
     void mflo(string expression, vector<string> & out); //DONE, VALIDATED KINDA
-    void sll(string expression, vector<string> & out);
-    void srl(string expression, vector<string> & out);
-    void lw(string expression, vector<string> & out);
-    void sw(string expression, vector<string> & out);
-    void slt(string expression, vector<string> & out);
+    void sll(string expression, vector<string> & out); //DONE, VALIDATED KINDA
+    void srl(string expression, vector<string> & out); //DONE, VALIDATED KINDA
+    void lw(string expression, vector<string> & out); //DONE, VALIDATED KINDA
+    void sw(string expression, vector<string> & out); //DONE, VALIDATED KINDA
+    void slt(string expression, vector<string> & out); //DONE, VALIDATED KINDA
     void beq(string expression, vector<string> & out);
     void bne(string expression, vector<string> & out);
     void j(string expression, vector<string> & out);
     void jal(string expression, vector<string> & out);
-    void jr(string expression, vector<string> & out);
-    void jalr(string expression, vector<string> & out);
-    void syscall(vector<string> & out);    
+    void jr(string expression, vector<string> & out); //DONE, VALIDATED KINDA
+    void jalr(string expression, vector<string> & out); //DONE, VALIDATED KINDA
+    void syscall(vector<string> & out); //DONE  
 };

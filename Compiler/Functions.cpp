@@ -153,46 +153,46 @@ vector<string> Converter::lineTakeIn(string expression){
         srl(expression, out);
         return out;
     }
-    // if(command == "lw"){
-    //     lw(expression, out);
-    //     return out;
-    // }
-    // if(command == "sw"){
-    //     sw(expression, out);
-    //     return out;
-    // }
-    // if(command == "slt"){
-    //     slt(expression, out);
-    //     return out;
-    // }
-    // if(command == "beq"){
-    //     beq(expression, out);
-    //     return out;
-    // }
-    // if(command == "bne"){
-    //     bne(expression, out);
-    //     return out;
-    // }
-    // if(command == "j"){
-    //     j(expression, out);
-    //     return out;
-    // }
-    // if(command == "jal"){
-    //     jal(expression, out);
-    //     return out;
-    // }
-    // if(command == "jr"){
-    //     jr(expression, out);
-    //     return out;
-    // }
-    // if(command == "jalr"){
-    //     jalr(expression, out);
-    //     return out;
-    // }
-    // if(command == "syscall"){
-    //     syscall(out);
-    //     return out;
-    // }
+    if(command == "lw"){
+        lw(expression, out);
+        return out;
+    }
+    if(command == "sw"){
+        sw(expression, out);
+        return out;
+    }
+    if(command == "slt"){
+        slt(expression, out);
+        return out;
+    }
+    if(command == "beq"){
+        beq(expression, out);
+        return out;
+    }
+    if(command == "bne"){
+        bne(expression, out);
+        return out;
+    }
+    if(command == "j"){
+        j(expression, out);
+        return out;
+    }
+    if(command == "jal"){
+        jal(expression, out);
+        return out;
+    }
+    if(command == "jr"){
+        jr(expression, out);
+        return out;
+    }
+    if(command == "jalr"){
+        jalr(expression, out);
+        return out;
+    }
+    if((command == "syscall")||(expression == "syscall")){
+        syscall(out);
+        return out;
+    }
 
     out.push_back("UNDEFINED COMMAND");
     return out;
@@ -350,4 +350,80 @@ void Converter::srl(string expression, vector<string> & out){
     result += immediate;
     result += "000010";
     out.push_back(result);
+}
+
+void Converter::lw(string expression, vector<string> & out){
+    array<RegLoc, 3> registers = findRegs(expression, 2);
+    string result = "100011";
+    result += regAddress(registers[1].reg);
+    result += regAddress(registers[0].reg);
+    string immediate;
+    int leftPar; 
+    for(int i = (expression.length() - 1); i >= 0; i--){
+        if(expression.at(i) == '('){ leftPar = i; }
+        if(isspace(expression.at(i))){
+            immediate = intToString(expression.substr(i, leftPar), 16);
+            break;
+        }
+    }
+    result += immediate;
+    out.push_back(result);
+}
+
+void Converter::sw(string expression, vector<string> & out){
+    array<RegLoc, 3> registers = findRegs(expression, 1);
+    string result = "101011";
+    result += regAddress(registers[1].reg);
+    result += regAddress(registers[0].reg);
+    string immediate;
+    int leftPar; 
+    for(int i = (expression.length() - 1); i >= 0; i--){
+        if(expression.at(i) == '('){ leftPar = i; }
+        if(isspace(expression.at(i))){
+            immediate = intToString(expression.substr(i, leftPar), 16);
+            break;
+        }
+    }
+    result += immediate;
+    out.push_back(result);
+}
+
+void Converter::slt(string expression, vector<string> & out){
+    array<RegLoc, 3> registers = findRegs(expression, 3);
+    string result = "000000";
+    result += regAddress(registers[1].reg);
+    result += regAddress(registers[2].reg);
+    result += regAddress(registers[0].reg);
+    result += "00000100000"; //00000 + 0x20
+    out.push_back(result);
+}
+
+void Converter::beq(string expression, vector<string> & out){}
+
+void Converter::bne(string expression, vector<string> & out){}
+
+void Converter::j(string expression, vector<string> & out){}
+
+void Converter::jal(string expression, vector<string> & out){}
+
+void Converter::jr(string expression, vector<string> & out){
+    array<RegLoc, 3> registers = findRegs(expression, 1);
+    string result = "000000";
+    result += regAddress(registers[0].reg);
+    result += "000000000000000001000";
+    out.push_back(result);
+}
+
+void Converter::jalr(string expression, vector<string> & out){
+    array<RegLoc, 3> registers = findRegs(expression, 2);
+    string result = "000000";
+    result += regAddress(registers[1].reg);
+    result += "00000";
+    result += regAddress(registers[0].reg);
+    result += "00000001001";
+    out.push_back(result);
+}
+
+void Converter::syscall(vector<string> & out){
+    out.push_back("00000000000000000000000000001100");
 }
