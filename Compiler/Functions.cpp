@@ -129,54 +129,71 @@ vector<string> Converter::lineTakeIn(string expression){
         sub(expression, out);
         return out;
     }
-    // if(command == "mult"){
-    //     return mult(expression);
-    // }
-    // if(command == "div"){
-    //     return div(expression);
-    // }
-    // if(command == "mfhi"){
-    //     return mfhi(expression);
-    // }
-    // if(command == "mflo"){
-    //     return mflo(expression);
-    // }
+    if(command == "mult"){
+        mult(expression, out);
+        return out;
+    }
+    if(command == "div"){
+        div(expression, out);
+        return out;
+    }
+    if(command == "mfhi"){
+        mfhi(expression, out);
+        return out;
+    }
+    if(command == "mflo"){
+        mflo(expression, out);
+        return out;
+    }
     // if(command == "sll"){
-    //     return sll(expression);
+    //     sll(expression, out);
+    //     return out;
     // }
     // if(command == "srl"){
-    //     return srl(expression);
+    //     srl(expression, out);
+    //     return out;
     // }
     // if(command == "lw"){
-    //     return lw(expression);
+    //     lw(expression, out);
+    //     return out;
     // }
     // if(command == "sw"){
-    //     return sw(expression);
+    //     sw(expression, out);
+    //     return out;
     // }
     // if(command == "slt"){
-    //     return slt(expression);
+    //     slt(expression, out);
+    //     return out;
     // }
     // if(command == "beq"){
-    //     return beq(expression);
+    //     beq(expression, out);
+    //     return out;
     // }
     // if(command == "bne"){
-    //     return bne(expression);
+    //     bne(expression, out);
+    //     return out;
     // }
     // if(command == "j"){
-    //     return j(expression);
+    //     j(expression, out);
+    //     return out;
     // }
     // if(command == "jal"){
-    //     return jal(expression);
+    //     jal(expression, out);
+    //     return out;
     // }
     // if(command == "jr"){
-    //     return jr(expression);
+    //     jr(expression, out);
+    //     return out;
     // }
     // if(command == "jalr"){
-    //     return jalr(expression);
+    //     jalr(expression, out);
+    //     return out;
     // }
     // if(command == "syscall"){
-    //     return syscall();
+    //     syscall(out);
+    //     return out;
     // }
+
     out.push_back("UNDEFINED COMMAND");
     return out;
 }
@@ -261,5 +278,41 @@ void Converter::sub(string expression, vector<string> & out){
     result += regAddress(registers[2].reg);
     result += regAddress(registers[0].reg);
     result += "00000100010";
+    out.push_back(result);
+}
+
+void Converter::mult(string expression, vector<string> & out){
+    array<RegLoc, 3> registers = findRegs(expression, 2);
+    string result = "000000";
+    result += regAddress(registers[0].reg);
+    result += regAddress(registers[1].reg);
+    result += "0000000000011000";
+    out.push_back(result);
+}
+
+void Converter::div(string expression, vector<string> & out){
+    array<RegLoc, 3> registers = findRegs(expression, 2);
+    string result = "000000";
+    result += regAddress(registers[0].reg);
+    result += regAddress(registers[1].reg);
+    result += "0000000000011010";
+    out.push_back(result);
+}
+
+void Converter::mfhi(string expression, vector<string> & out){
+    array<RegLoc, 3> registers = findRegs(expression, 1);
+    string result = "000000";
+    result += "0000000000";
+    result += regAddress(registers[0].reg);
+    result += "00000010000";
+    out.push_back(result);
+}
+
+void Converter::mflo(string expression, vector<string> & out){
+    array<RegLoc, 3> registers = findRegs(expression, 1);
+    string result = "000000";
+    result += "0000000000";
+    result += regAddress(registers[0].reg);
+    result += "00000010010";
     out.push_back(result);
 }

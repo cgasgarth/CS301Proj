@@ -36,11 +36,11 @@ class Converter { //648 or A-51 in book
     //BEGIN MIPS COMMANDS
     void add(string expression, vector<string> & out); //DONE, VALIDATED KINDA
     void addi(string expression, vector<string> & out); //DONE, VALIDATED KINDA 
-    void sub(string expression, vector<string> & out);
-    void mult(string expression, vector<string> & out);
-    void div(string expression, vector<string> & out);
-    void mfhi(string expression, vector<string> & out);
-    void mflo(string expression, vector<string> & out);
+    void sub(string expression, vector<string> & out); //DONE, VALIDATED KINDA
+    void mult(string expression, vector<string> & out); //DONE, VALIDATED KINDA
+    void div(string expression, vector<string> & out); //DONE, VALIDATED KINDA
+    void mfhi(string expression, vector<string> & out); //DONE, VALIDATED KINDA
+    void mflo(string expression, vector<string> & out); //DONE, VALIDATED KINDA
     void sll(string expression, vector<string> & out);
     void srl(string expression, vector<string> & out);
     void lw(string expression, vector<string> & out);

@@ -9,7 +9,7 @@ int main(int argc, char** argv){
     Converter c;
     vector<string> out;
     vector<string> lineOut;
-    lineOut = c.lineTakeIn("add $v0, $zero, $v1");
+    lineOut = c.lineTakeIn("mflo $s1");
     out.insert(out.end(), lineOut.begin(), lineOut.end());
     for (vector<string>::iterator t = out.begin(); t != out.end(); ++t) 
     {
