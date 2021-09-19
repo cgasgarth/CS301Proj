@@ -255,4 +255,11 @@ void Converter::addi(string expression, vector<string> & out){
 }
 
 void Converter::sub(string expression, vector<string> & out){
+    array<RegLoc, 3> registers = findRegs(expression, 3);
+    string result = "000000";
+    result += regAddress(registers[1].reg);
+    result += regAddress(registers[2].reg);
+    result += regAddress(registers[0].reg);
+    result += "00000100010";
+    out.push_back(result);
 }
