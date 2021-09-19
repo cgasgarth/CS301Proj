@@ -1,21 +1,20 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <vector>
 #include "Functions.h"
 using namespace std;
 
 int main(int argc, char** argv){
     Converter c;
-    if(argc == 3){
-        ifstream inFile;
-        ofstream outFile;
-        inFile.open(argv[1], ios::in); //open a file to read from
-        outFile.open(argv[2], ios::out); //open a file to write to
-        string inLine;
-        while( getline (inFile, inLine)) {
-            cout << c.add("$zero", "$at", "$v0") << endl;
-        }
+    vector<string> out;
+    vector<string> lineOut;
+    lineOut = c.lineTakeIn("add $v0, $zero, $v1");
+    out.insert(out.end(), lineOut.begin(), lineOut.end());
+    for (vector<string>::iterator t = out.begin(); t != out.end(); ++t) 
+    {
+        cout<<*t<<endl;
     }
-    cout << c.lineTakeIn("add $R0, $v0, $31") << endl;
+
     return 0;
 }

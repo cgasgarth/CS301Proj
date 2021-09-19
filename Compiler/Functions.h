@@ -1,5 +1,6 @@
 #include <string>
 #include <array>
+#include <vector>
 using namespace std;
 
 
@@ -25,30 +26,31 @@ class Converter { //648 or A-51 in book
                                  "$R26","$k0","$26","$R27","$k1","$27",
                                  "$R28","$gp","$28","$R29","$sp","$29",
                                  "$R30","$s8","$30","$R31","$ra","$31"}; //List of all regs
-    string regAddress(string reg); //DONE, NEEDS VALIDATION
-    string lineTakeIn(string expression);
-    string lineTakeIn(string expression, int offset);
-    array<RegLoc, 3> findRegs(string expression, int numRegs); //DONE, NEEDS VALIDATION
-    string findReg(string expression, int stringI, int i); //DONE, VALIDATED KINDA
+    string regAddress(string reg); //DONE, VALIDATED KINDA; return binary address of a reg
+    vector<string> lineTakeIn(string expression); //Adding below functions
+    vector<string> lineTakeIn(string expression, int offset); //IDK if going to be used
+    array<RegLoc, 3> findRegs(string expression, int numRegs); //DONE, VALIDATED KINDA; finds registers in order they appear
+    string findReg(string expression, int stringI, int i); //DONE, VALIDATED KINDA; validates findRegs for $num < $num+10 case
+    string intToString(string intString, int totalLen); //DONE, self explainitory 
     
     //BEGIN MIPS COMMANDS
-    string add(string reg1, string reg2, string reg3); //DONE, NEEDS VALIDATION
-    string addi(string reg1, string reg2, int val);
-    string sub(string reg1, string reg2, string reg3);
-    string mult(string reg1, string reg2);
-    string div(string reg1, string reg2);
-    string mfhi(string reg1);
-    string mflo(string reg1);
-    string sll(string reg1, string reg2, int shift);
-    string srl(string reg1, string reg2, int shift);
-    string lw(string reg1, string reg2, int offset);
-    string sw(string reg1, string reg2, int offset);
-    string slt(string reg1, string reg2, string reg3);
-    string beq(string reg1, string reg2, int offset);
-    string bne(string reg1, string reg2, int offset);
-    string j(string label);
-    string jal(string label);
-    string jr(string reg);
-    string jalr(string reg1, string reg2);
-    string syscall();    
+    void add(string expression, vector<string> & out); //DONE, VALIDATED KINDA
+    void addi(string expression, vector<string> & out); //DONE, VALIDATED KINDA 
+    void sub(string expression, vector<string> & out);
+    void mult(string expression, vector<string> & out);
+    void div(string expression, vector<string> & out);
+    void mfhi(string expression, vector<string> & out);
+    void mflo(string expression, vector<string> & out);
+    void sll(string expression, vector<string> & out);
+    void srl(string expression, vector<string> & out);
+    void lw(string expression, vector<string> & out);
+    void sw(string expression, vector<string> & out);
+    void slt(string expression, vector<string> & out);
+    void beq(string expression, vector<string> & out);
+    void bne(string expression, vector<string> & out);
+    void j(string expression, vector<string> & out);
+    void jal(string expression, vector<string> & out);
+    void jr(string expression, vector<string> & out);
+    void jalr(string expression, vector<string> & out);
+    void syscall(vector<string> & out);    
 };

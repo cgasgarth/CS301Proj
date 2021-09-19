@@ -108,9 +108,9 @@ string Converter::regAddress(string reg){
     return "ERROR";
 }
 
-string Converter::lineTakeIn(string expression){
-    string command; 
-    string binOut;
+vector<string> Converter::lineTakeIn(string expression){
+    string command;
+    vector<string> out;
     for(int i = 0; i < expression.length(); i++){
         if(isspace(expression.at(i))){
             command = expression.substr(0, i);
@@ -118,14 +118,67 @@ string Converter::lineTakeIn(string expression){
         }
     }
     if(command == "add"){
-        array<RegLoc, 3> registers = findRegs(expression, 3);
-        //binOut = add(registers[0].reg, registers[1].reg, registers[2].reg);
-        for(int i = 0; i < 3; i++){
-            cout << registers[i].reg << endl;
-        }
-        return binOut;
+        add(expression, out);
+        return out;
     }
-    return "ERROR";
+    if(command == "addi"){
+        addi(expression, out);
+        return out;
+    }
+    if(command == "sub"){
+        sub(expression, out);
+        return out;
+    }
+    // if(command == "mult"){
+    //     return mult(expression);
+    // }
+    // if(command == "div"){
+    //     return div(expression);
+    // }
+    // if(command == "mfhi"){
+    //     return mfhi(expression);
+    // }
+    // if(command == "mflo"){
+    //     return mflo(expression);
+    // }
+    // if(command == "sll"){
+    //     return sll(expression);
+    // }
+    // if(command == "srl"){
+    //     return srl(expression);
+    // }
+    // if(command == "lw"){
+    //     return lw(expression);
+    // }
+    // if(command == "sw"){
+    //     return sw(expression);
+    // }
+    // if(command == "slt"){
+    //     return slt(expression);
+    // }
+    // if(command == "beq"){
+    //     return beq(expression);
+    // }
+    // if(command == "bne"){
+    //     return bne(expression);
+    // }
+    // if(command == "j"){
+    //     return j(expression);
+    // }
+    // if(command == "jal"){
+    //     return jal(expression);
+    // }
+    // if(command == "jr"){
+    //     return jr(expression);
+    // }
+    // if(command == "jalr"){
+    //     return jalr(expression);
+    // }
+    // if(command == "syscall"){
+    //     return syscall();
+    // }
+    out.push_back("UNDEFINED COMMAND");
+    return out;
 }
 
 array<RegLoc, 3> Converter::findRegs(string expression, int numRegs){
@@ -135,7 +188,7 @@ array<RegLoc, 3> Converter::findRegs(string expression, int numRegs){
     string substring;
     for(int i = 0; i <= expression.length(); i++){
         substring = expression.substr(stringI, i);
-        for(int j = 0; j < 96; j++){
+        for(int j = 0; j < 96; j++){ // IG Could've used a
             int location = substring.find(regList.at(j));
             if(location != string::npos){
                 struct RegLoc reg;
@@ -162,15 +215,44 @@ string Converter::findReg(string expression, int stringI, int i){
     return "ERROR";
 }
 
-string Converter::add(string var1, string var2, string var3){ 
-    string result = "000000";
-    result += this->regAddress(var2);
-    result += this->regAddress(var3);
-    result += this->regAddress(var1);
-    result += "00000100000"; //00000 + 0x20
-    return result; 
+string Converter::intToString(string intString, int totalLen){
+    int n = stoi(intString);
+    string binary;
+    while(n!=0) {binary=(n%2==0 ?"0":"1")+binary; n/=2;}
+    int remainder = totalLen - binary.length();
+    string buffer;
+    for (int i = 0; i < remainder; i++){
+        buffer += "0";
+    }
+    buffer += binary;
+    return buffer;
 }
 
-string Converter::addi(string var1, string var2, int val){
-    return "0900";
+void Converter::add(string expression, vector<string> & out){ 
+    array<RegLoc, 3> registers = findRegs(expression, 3);
+    string result = "000000";
+    result += regAddress(registers[1].reg);
+    result += regAddress(registers[2].reg);
+    result += regAddress(registers[0].reg);
+    result += "00000100000"; //00000 + 0x20
+    out.push_back(result);
+}
+
+void Converter::addi(string expression, vector<string> & out){
+    array<RegLoc, 3> registers = findRegs(expression, 2);
+    string result = "001000";
+    result += regAddress(registers[1].reg);
+    result += regAddress(registers[0].reg);
+    string immediate;
+    for(int i = (expression.length() - 1); i >= 0; i--){
+        if(isspace(expression.at(i))){
+            immediate = intToString(expression.substr(i, expression.length() - 1), 16);
+            break;
+        }
+    }
+    result += immediate;
+    out.push_back(result);
+}
+
+void Converter::sub(string expression, vector<string> & out){
 }
