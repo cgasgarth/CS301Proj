@@ -8,6 +8,10 @@ struct RegLoc{
     string reg;
     int loc;
 };
+struct label{
+    string name;
+    int line;
+};
 class Converter { //648 or A-51 in book
     public:
     array<string, 96> regList = {"$R0","$zero","$0","R1","$at","$1", 
@@ -26,9 +30,10 @@ class Converter { //648 or A-51 in book
                                  "$R26","$k0","$26","$R27","$k1","$27",
                                  "$R28","$gp","$28","$R29","$sp","$29",
                                  "$R30","$s8","$30","$R31","$ra","$31"}; //List of all regs
+    vector<label> labels;
     string regAddress(string reg); //DONE, VALIDATED KINDA; return binary address of a reg
-    vector<string> lineTakeIn(string expression); //Adding below functions
-    vector<string> lineTakeIn(string expression, int offset); //IDK if going to be used
+    vector<string> lineTakeIn(string expression, int line); //IDK if going to be used
+    string cleanString(string expression);
     array<RegLoc, 3> findRegs(string expression, int numRegs); //DONE, VALIDATED KINDA; finds registers in order they appear
     string findReg(string expression, int stringI, int i); //DONE, VALIDATED KINDA; validates findRegs for $num < $num+10 case
     string intToString(string intString, int totalLen); //DONE, self explainitory 

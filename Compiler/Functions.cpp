@@ -108,9 +108,21 @@ string Converter::regAddress(string reg){
     return "ERROR";
 }
 
-vector<string> Converter::lineTakeIn(string expression){
+vector<string> Converter::lineTakeIn(string expression, int line){
+    expression = cleanString(expression);
     string command;
     vector<string> out;
+    if(expression.at(0) == '.'){
+        return out;
+    }
+    if(expression.at(expression.length()-1) == ':'){
+        label tempL;
+        tempL.name = expression.substr(0, expression.length() - 2);
+        tempL.line = line;
+        labels.push_back(tempL);
+        return out;
+    }
+    cout << "for loop" << endl;
     for(int i = 0; i < expression.length(); i++){
         if(isspace(expression.at(i))){
             command = expression.substr(0, i);
@@ -196,6 +208,26 @@ vector<string> Converter::lineTakeIn(string expression){
 
     out.push_back("UNDEFINED COMMAND");
     return out;
+}
+
+string Converter::cleanString(string expression){
+    for(int i = 0; i < expression.length(); i++){
+        if((expression.at(i) != ' ') && (expression.at(i) != '\t')){
+            expression = expression.substr(i, expression.length());
+            break;
+        }
+    }
+    // if(expression.at(expression.length()-1) == ' '){
+    for(int i = (expression.length() - 1); i >= 0; i--){
+        if((expression.at(i)) != ' ' && (expression.at(i) != '\t')){
+            if(i < expression.length() - 1){
+                expression = expression.substr(0, i+1);
+                break;
+            }
+            break;
+        }
+    }
+    return expression;
 }
 
 array<RegLoc, 3> Converter::findRegs(string expression, int numRegs){

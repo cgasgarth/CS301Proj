@@ -27,15 +27,15 @@ int main(int argc, char** argv){
 
     string line;
     string instruction;
+    Converter c;
 
     while(getline(infile, line)){
         int i = 0;
-        while((i < line.length()) and (line[i] != '#')){
+        while((i < line.length()) && (line[i] != '#') && (line[i] != '\r')){
             instruction += line[i];
             i++;
         }
-        cout << "instruction: " << instruction << endl;
-        //pass instruction into function
+        cout << "|" << c.cleanString(instruction) << "|" << endl;
         instruction = "";
     }
 
