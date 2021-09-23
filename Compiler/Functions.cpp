@@ -122,7 +122,6 @@ vector<string> Converter::lineTakeIn(string expression, int line){
         labels.push_back(tempL);
         return out;
     }
-    cout << "for loop" << endl;
     for(int i = 0; i < expression.length(); i++){
         if(isspace(expression.at(i))){
             command = expression.substr(0, i);
