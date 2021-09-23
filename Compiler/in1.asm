@@ -14,7 +14,7 @@ main:
   div $a0, $v1 #comment
   mflo $t0 
   mfhi $t1 #coasdfasdf a sdfasdf
-  sll $13, $23, 24
+  sll $13, $23, 15
   srl $11, $15, 2 
   lw $t3, 2($a0)
   sw $t4, 4($a0)
@@ -24,7 +24,7 @@ main:
   j label3
   jal func1
   jr $ra
-  jalr $s0
+  jalr $s0, $s1
   syscall
 
   label:

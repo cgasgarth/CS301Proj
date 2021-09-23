@@ -184,7 +184,7 @@ vector<string> Converter::lineTakeIn(string expression, int line){
         bne(expression, out);
         return out;
     }
-    if(command == "j"){
+    if((command == "j") || (command == "jump")){
         j(expression, out);
         return out;
     }
@@ -276,6 +276,25 @@ string Converter::intToString(string intString, int totalLen){
     return buffer;
 }
 
+void Converter::setJumps(string fileName){
+}
+
+string Converter::convertToHex(string binaryIn){
+    string hexOut;
+    return hexOut;
+}
+
+string Converter::returnLabel(string expression){
+    string label;
+    for(int i = expression.length() - 1; i >= 0; i--){
+        if(expression.at(i) == ' '){
+            label = expression.substr(i + 1, expression.length() - 1);
+            break;
+        }
+    }
+    return label;
+}
+
 void Converter::add(string expression, vector<string> & out){ 
     array<RegLoc, 3> registers = findRegs(expression, 3);
     string result = "000000";
@@ -360,7 +379,6 @@ void Converter::sll(string expression, vector<string> & out){
             break;
         }
     }
-    cout << immediate << endl;
     result += immediate;
     result += "000000";
     out.push_back(result);
@@ -429,13 +447,38 @@ void Converter::slt(string expression, vector<string> & out){
     out.push_back(result);
 }
 
-void Converter::beq(string expression, vector<string> & out){}
+void Converter::beq(string expression, vector<string> & out){
+    array<RegLoc, 3> registers = findRegs(expression, 2);
+    string result = "000100";
+    result += regAddress(registers[0].reg);
+    result += regAddress(registers[1].reg);
+    result += "|" + returnLabel(expression);
+    out.push_back(result);
+}
 
-void Converter::bne(string expression, vector<string> & out){}
+void Converter::bne(string expression, vector<string> & out){
+    array<RegLoc, 3> registers = findRegs(expression, 2);
+    string result = "000101";
+    result += regAddress(registers[0].reg);
+    result += regAddress(registers[1].reg);
+    result += "|" + returnLabel(expression);
+    out.push_back(result);
+}
 
-void Converter::j(string expression, vector<string> & out){}
+void Converter::j(string expression, vector<string> & out){
+    array<RegLoc, 3> registers = findRegs(expression, 1);
+    string result = "000010";
+    result += regAddress(registers[0].reg);
+    result += "|" + returnLabel(expression);
+    out.push_back(result);
+}
 
-void Converter::jal(string expression, vector<string> & out){}
+void Converter::jal(string expression, vector<string> & out){
+    array<RegLoc, 3> registers = findRegs(expression, 1);
+    string result = "000011";
+    result += "|" + returnLabel(expression);
+    out.push_back(result);
+}
 
 void Converter::jr(string expression, vector<string> & out){
     array<RegLoc, 3> registers = findRegs(expression, 1);
