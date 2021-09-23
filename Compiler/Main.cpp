@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <vector>
 #include "Functions.h"
 using namespace std;
 
@@ -28,6 +29,8 @@ int main(int argc, char** argv){
     string line;
     string instruction;
     Converter c;
+    vector<string> binaryOut;
+    int curLine = 0;
 
     while(getline(infile, line)){
         int i = 0;
@@ -35,8 +38,17 @@ int main(int argc, char** argv){
             instruction += line[i];
             i++;
         }
-        cout << "|" << c.cleanString(instruction) << "|" << endl;
+        cout << instruction << endl;
+        if(instruction.length() > 0){
+            binaryOut = c.lineTakeIn(instruction, curLine);
+            for (string j: binaryOut){
+                cout << j << endl;
+                curLine ++;
+            } 
+        }
+        binaryOut.clear();
         instruction = "";
+
     }
 
 

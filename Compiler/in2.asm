@@ -1,1 +1,0 @@
-add $zero, $at, $v0
