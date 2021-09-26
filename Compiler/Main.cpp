@@ -38,11 +38,9 @@ int main(int argc, char** argv){
             instruction += line[i];
             i++;
         }
-        cout << instruction << endl;
         if(instruction.length() > 0){
             binaryOut = c.lineTakeIn(instruction, curLine);
             for (string j: binaryOut){
-                cout << j << endl;
                 curLine ++;
             } 
         }
@@ -50,13 +48,6 @@ int main(int argc, char** argv){
         instruction = "";
 
     }
-
-
-    // Converter c;
-    // string inLine;
-    // while( getline (inFile, inLine)) {
-    //     cout << c.add("$zero", "$at", "$v0") << endl;
-    // }
     
     return 0;
 }

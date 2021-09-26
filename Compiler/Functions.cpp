@@ -115,7 +115,7 @@ vector<string> Converter::lineTakeIn(string expression, int line){
     if(expression.at(0) == '.'){
         return out;
     }
-    if(expression.at(expression.length()-1) == ':'){
+    if(expression.find(':') != string::npos){
         label tempL;
         tempL.name = expression.substr(0, expression.length() - 2);
         tempL.line = line;
@@ -128,6 +128,7 @@ vector<string> Converter::lineTakeIn(string expression, int line){
             break;
         }
     }
+    cout << "|" << command << "|" << endl;
     if(command == "add"){
         add(expression, out);
         return out;
@@ -184,7 +185,7 @@ vector<string> Converter::lineTakeIn(string expression, int line){
         bne(expression, out);
         return out;
     }
-    if((command == "j") || (command == "jump")){
+    if(command == "j" || command == "jump"){
         j(expression, out);
         return out;
     }
@@ -468,7 +469,6 @@ void Converter::bne(string expression, vector<string> & out){
 void Converter::j(string expression, vector<string> & out){
     array<RegLoc, 3> registers = findRegs(expression, 1);
     string result = "000010";
-    result += regAddress(registers[0].reg);
     result += "|" + returnLabel(expression);
     out.push_back(result);
 }
