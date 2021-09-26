@@ -2,6 +2,7 @@
 #include <string>
 #include <stdexcept>
 #include <iostream>
+#include <fstream>
 #include <array>
 #include "Functions.h"
 
@@ -117,8 +118,11 @@ vector<string> Converter::lineTakeIn(string expression, int line){
     }
     if(expression.find(':') != string::npos){
         label tempL;
-        tempL.name = expression.substr(0, expression.length() - 2);
-        tempL.line = line;
+        for(int i = 0; i < expression.length(); i++){
+            if(expression.at(i) == ':'){
+                tempL.name = expression.substr(0, i);
+            }
+        }
         labels.push_back(tempL);
         return out;
     }
@@ -128,7 +132,6 @@ vector<string> Converter::lineTakeIn(string expression, int line){
             break;
         }
     }
-    cout << "|" << command << "|" << endl;
     if(command == "add"){
         add(expression, out);
         return out;
@@ -277,7 +280,30 @@ string Converter::intToString(string intString, int totalLen){
     return buffer;
 }
 
-void Converter::setJumps(string fileName){
+void Converter::setJumps(int argc, char* argv[]){
+    fstream outfile(argv[2]);
+    ofstream tempFile("temp.txt");
+    string line;
+    while(getline(outfile, line)){ //setup temp file
+        if (line.substr(0, 6) == "000100"){ // beq ND
+            cout << "beq" << endl;
+            cout << line << endl;
+        }
+        else if(line.substr(0, 6) == "000101"){ //bne
+            cout << "bne" << endl;
+            cout << line << endl;
+        }
+        else if(line.substr(0, 6) == "000010"){ // jump ND
+            cout << "jump" << endl;
+            cout << line << endl;
+        }
+        else if(line.substr(0, 6) == "000011"){ //jal ND
+            cout << "jal" << endl;
+            cout << line << endl;
+        }             
+    }
+
+    //remove("temp.txt");
 }
 
 string Converter::convertToHex(string binaryIn){

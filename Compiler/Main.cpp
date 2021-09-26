@@ -21,11 +21,10 @@ int main(int argc, char** argv){
     // open the output file 
     ofstream outfile(argv[2]);
 
-    if (!outfile){ //error in the case of file not opening
+    if (!outfile.is_open()){ //error in the case of file not opening
         std::cerr << "Error: could not open file: " << argv[2] << std::endl;
         std::exit(1);
     }
-
     string line;
     string instruction;
     Converter c;
@@ -41,6 +40,7 @@ int main(int argc, char** argv){
         if(instruction.length() > 0){
             binaryOut = c.lineTakeIn(instruction, curLine);
             for (string j: binaryOut){
+                outfile << j << endl;
                 curLine ++;
             } 
         }
@@ -48,6 +48,7 @@ int main(int argc, char** argv){
         instruction = "";
 
     }
+    c.setJumps(argc, argv);
     
     return 0;
 }

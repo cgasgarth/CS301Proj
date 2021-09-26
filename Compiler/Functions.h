@@ -2,6 +2,8 @@
 #include <array>
 #include <vector>
 #include <list>
+#include <iostream>
+#include <fstream>
 using namespace std;
 
 
@@ -38,7 +40,7 @@ class Converter { //648 or A-51 in book
     array<RegLoc, 3> findRegs(string expression, int numRegs); //DONE, VALIDATED KINDA; finds registers in order they appear
     string findReg(string expression, int stringI, int i); //DONE, VALIDATED KINDA; validates findRegs for $num < $num+10 case
     string intToString(string intString, int totalLen); //DONE, self explainitory 
-    void setJumps(string fileName);
+    void setJumps(int argc, char* argv[]);
     string convertToHex(string binaryIn);
     string returnLabel(string expression); //DONE, KINDA
     
