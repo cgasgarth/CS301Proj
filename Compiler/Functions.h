@@ -40,8 +40,12 @@ class Converter { //648 or A-51 in book
     array<RegLoc, 3> findRegs(string expression, int numRegs); //DONE, VALIDATED KINDA; finds registers in order they appear
     string findReg(string expression, int stringI, int i); //DONE, VALIDATED KINDA; validates findRegs for $num < $num+10 case
     string intToString(string intString, int totalLen); //DONE, self explainitory 
-    void setJumps(int argc, char* argv[]);
-    string convertToHex(string binaryIn);
+    string intToString(int i, int totalLen); //DONE, self explainitory
+    void setJumps();
+    label setJumpsLH(string expression); //set jumps label helper
+    void convertToHex(int argc, char* argv[]);
+    string binaryToHex(string binaryS);
+    char getHexCharacter(string str);
     string returnLabel(string expression); //DONE, KINDA
     
     //BEGIN MIPS COMMANDS

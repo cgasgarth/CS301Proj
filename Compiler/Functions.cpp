@@ -123,7 +123,9 @@ vector<string> Converter::lineTakeIn(string expression, int line){
                 tempL.name = expression.substr(0, i);
             }
         }
+        tempL.line = line;
         labels.push_back(tempL);
+        out.push_back("Label");
         return out;
     }
     for(int i = 0; i < expression.length(); i++){
@@ -240,7 +242,7 @@ array<RegLoc, 3> Converter::findRegs(string expression, int numRegs){
     string substring;
     for(int i = 0; i <= expression.length(); i++){
         substring = expression.substr(stringI, i);
-        for(int j = 0; j < 96; j++){ // IG Could've used a
+        for(int j = 0; j < 96; j++){ // IG Could've used at
             int location = substring.find(regList.at(j));
             if(location != string::npos){
                 struct RegLoc reg;
@@ -280,42 +282,134 @@ string Converter::intToString(string intString, int totalLen){
     return buffer;
 }
 
-void Converter::setJumps(int argc, char* argv[]){
-    fstream outfile(argv[2]);
-    ofstream tempFile("temp.txt");
+string Converter::intToString(int i, int totalLen){
+    string binary;
+    while(i!=0) {binary=(i%2==0 ?"0":"1")+binary; i/=2;}
+    int remainder = totalLen - binary.length();
+    string buffer;
+    for (int j = 0; j < remainder; j++){
+        buffer += "0";
+    }
+    buffer += binary;
+    return buffer;
+}
+
+void Converter::setJumps(){
+    ofstream outfile("hexTemp.txt");
+    ifstream tempR("jumpsTemp.txt");
     string line;
-    while(getline(outfile, line)){ //setup temp file
+    int curLine = 0;
+    while(getline(tempR, line)){ //Rewrite out.txt 
         if (line.substr(0, 6) == "000100"){ // beq ND
-            cout << "beq" << endl;
-            cout << line << endl;
+            struct label label= setJumpsLH(line);
+            int offset = label.line - curLine;
+            line.replace(line.find("|"), label.name.length() + 1, intToString(offset, 16));
+            outfile << line << endl;
         }
         else if(line.substr(0, 6) == "000101"){ //bne
-            cout << "bne" << endl;
-            cout << line << endl;
+            struct label label= setJumpsLH(line);
+            int offset = label.line - curLine;
+            line.replace(line.find("|"), label.name.length() + 1, intToString(offset, 16));
+            outfile << line << endl;
         }
         else if(line.substr(0, 6) == "000010"){ // jump ND
-            cout << "jump" << endl;
-            cout << line << endl;
+            struct label label= setJumpsLH(line);
+            line.replace(line.find("|"), label.name.length() + 1, intToString(label.line, 26));
+            outfile << line << endl;
         }
         else if(line.substr(0, 6) == "000011"){ //jal ND
-            cout << "jal" << endl;
-            cout << line << endl;
-        }             
+            struct label label= setJumpsLH(line);
+            line.replace(line.find("|"), label.name.length() + 1, intToString(label.line, 26));
+            outfile << line << endl;
+        }
+        else {
+            outfile << line << endl;
+        }
+        curLine++;             
     }
-
-    //remove("temp.txt");
+    remove("jumpsTemp.txt");
 }
 
-string Converter::convertToHex(string binaryIn){
-    string hexOut;
-    return hexOut;
+label Converter::setJumpsLH(string expression){
+    string labelName;
+    for(int i = 0; i < expression.length(); i++){
+        if(expression.at(i) == '|'){
+            labelName = expression.substr(i + 1, expression.length());
+            break;
+        }
+    }
+    for (struct label i: labels){
+        if(i.name == labelName){
+            return i;
+        }
+    }
+    label errorLab; 
+    errorLab.line = -1;
+    errorLab.name = "ERROR";
+    return errorLab;
 }
+
+void Converter::convertToHex(int argc, char* argv[]){
+    ifstream infile("hexTemp.txt");
+    ofstream outfile(argv[2]);
+    string line;
+    while(getline(infile, line)){
+        outfile << binaryToHex(line) << endl;
+    }
+    remove("hexTemp.txt");
+}
+
+string Converter::binaryToHex(string binaryS){
+    std::string endresult = "0x";
+	for(int i = 0; i < binaryS.length(); i = i+4)
+	{
+		endresult += getHexCharacter(binaryS.substr(i,4));
+	}
+	return endresult;
+
+}
+    
+char Converter::getHexCharacter(std::string str)
+{
+	if(str.compare("1111") == 0) return 'F';
+	else if(str.compare("1110") == 0) return 'E';
+	else if(str.compare("1101")== 0) return 'D';
+	else if(str.compare("1100")== 0) return 'C';
+	else if(str.compare("1011")== 0) return 'B';
+	else if(str.compare("1010")== 0) return 'A';
+	else if(str.compare("1001")== 0) return '9';
+	else if(str.compare("1000")== 0) return '8';
+	else if(str.compare("0111")== 0) return '7';
+	else if(str.compare("0110")== 0) return '6';
+	else if(str.compare("0101")== 0) return '5';
+	else if(str.compare("0100")== 0) return '4';
+	else if(str.compare("0011")== 0) return '3';
+	else if(str.compare("0010")== 0) return '2';
+	else if(str.compare("0001")== 0) return '1';
+	else if(str.compare("0000")== 0) return '0';
+	else if(str.compare("111")== 0) return '7';
+	else if(str.compare("110")== 0) return '6';
+	else if(str.compare("101")== 0) return '5';
+	else if(str.compare("100")== 0) return '4';
+	else if(str.compare("011")== 0) return '3';
+	else if(str.compare("010")== 0) return '2';
+	else if(str.compare("001")== 0) return '1';
+	else if(str.compare("000")== 0) return '0';
+	else if(str.compare("11")== 0) return '3';
+	else if(str.compare("10")== 0) return '2';
+	else if(str.compare("01")== 0) return '1';
+	else if(str.compare("00")== 0) return '0';
+	else if(str.compare("1")== 0) return '1';
+	else if(str.compare("0")== 0) return '0';
+    else{ return 'Z'; };
+}
+
 
 string Converter::returnLabel(string expression){
     string label;
     for(int i = expression.length() - 1; i >= 0; i--){
         if(expression.at(i) == ' '){
-            label = expression.substr(i + 1, expression.length() - 1);
+            label = expression.substr(i + 1, expression.length());
             break;
         }
     }

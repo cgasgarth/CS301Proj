@@ -25,6 +25,7 @@ int main(int argc, char** argv){
         std::cerr << "Error: could not open file: " << argv[2] << std::endl;
         std::exit(1);
     }
+    ofstream tempFile("jumpsTemp.txt");
     string line;
     string instruction;
     Converter c;
@@ -40,7 +41,11 @@ int main(int argc, char** argv){
         if(instruction.length() > 0){
             binaryOut = c.lineTakeIn(instruction, curLine);
             for (string j: binaryOut){
-                outfile << j << endl;
+                if(j == "Label"){
+                    curLine ++;
+                    break;
+                }
+                tempFile << j << endl;
                 curLine ++;
             } 
         }
@@ -48,7 +53,7 @@ int main(int argc, char** argv){
         instruction = "";
 
     }
-    c.setJumps(argc, argv);
-    
+    c.setJumps();
+    c.convertToHex(argc, argv);
     return 0;
 }
