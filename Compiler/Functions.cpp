@@ -9,7 +9,7 @@
 using namespace std;
 //648 or A-51 in book
 
-string Converter::regAddress(string reg){
+string Converter::regAddress(const string reg){
     if((reg == "$R0") || (reg == "$zero") || (reg == "$0")){
         return "00000";
     }
@@ -408,7 +408,7 @@ char Converter::getHexCharacter(std::string str)
 }
 
 
-string Converter::returnLabel(string expression){
+string Converter::returnLabel(const string expression){
     string label;
     for(int i = expression.length() - 1; i >= 0; i--){
         if(expression.at(i) == ' '){
@@ -419,7 +419,7 @@ string Converter::returnLabel(string expression){
     return label;
 }
 
-void Converter::add(string expression, vector<string> & out){ 
+void Converter::add(const string expression, vector<string> & out){ 
     array<RegLoc, 3> registers = findRegs(expression, 3);
     string result = "000000";
     result += regAddress(registers[1].reg);
@@ -429,7 +429,7 @@ void Converter::add(string expression, vector<string> & out){
     out.push_back(result);
 }
 
-void Converter::addi(string expression, vector<string> & out){
+void Converter::addi(const string expression, vector<string> & out){
     array<RegLoc, 3> registers = findRegs(expression, 2);
     string result = "001000";
     result += regAddress(registers[1].reg);
@@ -445,7 +445,7 @@ void Converter::addi(string expression, vector<string> & out){
     out.push_back(result);
 }
 
-void Converter::sub(string expression, vector<string> & out){
+void Converter::sub(const string expression, vector<string> & out){
     array<RegLoc, 3> registers = findRegs(expression, 3);
     string result = "000000";
     result += regAddress(registers[1].reg);
@@ -455,7 +455,7 @@ void Converter::sub(string expression, vector<string> & out){
     out.push_back(result);
 }
 
-void Converter::mult(string expression, vector<string> & out){
+void Converter::mult(const string expression, vector<string> & out){
     array<RegLoc, 3> registers = findRegs(expression, 2);
     string result = "000000";
     result += regAddress(registers[0].reg);
@@ -464,7 +464,7 @@ void Converter::mult(string expression, vector<string> & out){
     out.push_back(result);
 }
 
-void Converter::div(string expression, vector<string> & out){
+void Converter::div(const string expression, vector<string> & out){
     array<RegLoc, 3> registers = findRegs(expression, 2);
     string result = "000000";
     result += regAddress(registers[0].reg);
@@ -473,7 +473,7 @@ void Converter::div(string expression, vector<string> & out){
     out.push_back(result);
 }
 
-void Converter::mfhi(string expression, vector<string> & out){
+void Converter::mfhi(const string expression, vector<string> & out){
     array<RegLoc, 3> registers = findRegs(expression, 1);
     string result = "000000";
     result += "0000000000";
@@ -482,7 +482,7 @@ void Converter::mfhi(string expression, vector<string> & out){
     out.push_back(result);
 }
 
-void Converter::mflo(string expression, vector<string> & out){
+void Converter::mflo(const string expression, vector<string> & out){
     array<RegLoc, 3> registers = findRegs(expression, 1);
     string result = "000000";
     result += "0000000000";
@@ -491,7 +491,7 @@ void Converter::mflo(string expression, vector<string> & out){
     out.push_back(result);
 }
 
-void Converter::sll(string expression, vector<string> & out){
+void Converter::sll(const string expression, vector<string> & out){
     array<RegLoc, 3> registers = findRegs(expression, 1);
     string result = "00000000000";
     result += regAddress(registers[1].reg);
@@ -508,7 +508,7 @@ void Converter::sll(string expression, vector<string> & out){
     out.push_back(result);
 }
 
-void Converter::srl(string expression, vector<string> & out){
+void Converter::srl(const string expression, vector<string> & out){
     array<RegLoc, 3> registers = findRegs(expression, 1);
     string result = "00000000000";
     result += regAddress(registers[1].reg);
@@ -525,7 +525,7 @@ void Converter::srl(string expression, vector<string> & out){
     out.push_back(result);
 }
 
-void Converter::lw(string expression, vector<string> & out){
+void Converter::lw(const string expression, vector<string> & out){
     array<RegLoc, 3> registers = findRegs(expression, 2);
     string result = "100011";
     result += regAddress(registers[1].reg);
@@ -543,7 +543,7 @@ void Converter::lw(string expression, vector<string> & out){
     out.push_back(result);
 }
 
-void Converter::sw(string expression, vector<string> & out){
+void Converter::sw(const string expression, vector<string> & out){
     array<RegLoc, 3> registers = findRegs(expression, 1);
     string result = "101011";
     result += regAddress(registers[1].reg);
@@ -561,7 +561,7 @@ void Converter::sw(string expression, vector<string> & out){
     out.push_back(result);
 }
 
-void Converter::slt(string expression, vector<string> & out){
+void Converter::slt(const string expression, vector<string> & out){
     array<RegLoc, 3> registers = findRegs(expression, 3);
     string result = "000000";
     result += regAddress(registers[1].reg);
@@ -571,7 +571,7 @@ void Converter::slt(string expression, vector<string> & out){
     out.push_back(result);
 }
 
-void Converter::beq(string expression, vector<string> & out){
+void Converter::beq(const string expression, vector<string> & out){
     array<RegLoc, 3> registers = findRegs(expression, 2);
     string result = "000100";
     result += regAddress(registers[0].reg);
@@ -580,7 +580,7 @@ void Converter::beq(string expression, vector<string> & out){
     out.push_back(result);
 }
 
-void Converter::bne(string expression, vector<string> & out){
+void Converter::bne(const string expression, vector<string> & out){
     array<RegLoc, 3> registers = findRegs(expression, 2);
     string result = "000101";
     result += regAddress(registers[0].reg);
@@ -589,21 +589,21 @@ void Converter::bne(string expression, vector<string> & out){
     out.push_back(result);
 }
 
-void Converter::j(string expression, vector<string> & out){
+void Converter::j(const string expression, vector<string> & out){
     array<RegLoc, 3> registers = findRegs(expression, 1);
     string result = "000010";
     result += "|" + returnLabel(expression);
     out.push_back(result);
 }
 
-void Converter::jal(string expression, vector<string> & out){
+void Converter::jal(const string expression, vector<string> & out){
     array<RegLoc, 3> registers = findRegs(expression, 1);
     string result = "000011";
     result += "|" + returnLabel(expression);
     out.push_back(result);
 }
 
-void Converter::jr(string expression, vector<string> & out){
+void Converter::jr(const string expression, vector<string> & out){
     array<RegLoc, 3> registers = findRegs(expression, 1);
     string result = "000000";
     result += regAddress(registers[0].reg);
@@ -611,7 +611,7 @@ void Converter::jr(string expression, vector<string> & out){
     out.push_back(result);
 }
 
-void Converter::jalr(string expression, vector<string> & out){
+void Converter::jalr(const string expression, vector<string> & out){
     array<RegLoc, 3> registers = findRegs(expression, 2);
     string result = "000000";
     result += regAddress(registers[1].reg);
