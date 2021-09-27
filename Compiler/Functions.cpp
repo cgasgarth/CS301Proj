@@ -70,40 +70,40 @@ string Converter::regAddress(string reg){
     if((reg == "$R19") || (reg == "$s3") || (reg == "$19")){
         return "10011";
     }
-    if((reg == "$20") || (reg == "$s4") || (reg == "$20")){
+    if((reg == "$R20") || (reg == "$s4") || (reg == "$20")){
         return "10100";
     }
-    if((reg == "$21") || (reg == "$s5") || (reg == "$21")){
+    if((reg == "$R21") || (reg == "$s5") || (reg == "$21")){
         return "10101";
     }
-    if((reg == "$22") || (reg == "$s6") || (reg == "$22")){
+    if((reg == "$R22") || (reg == "$s6") || (reg == "$22")){
         return "10110";
     }
-    if((reg == "$23") || (reg == "$s7") || (reg == "$23")){
+    if((reg == "$R23") || (reg == "$s7") || (reg == "$23")){
         return "10111";
     }
-    if((reg == "$24") || (reg == "$t8") || (reg == "$24")){
+    if((reg == "$R24") || (reg == "$t8") || (reg == "$24")){
         return "11000";
     }
-    if((reg == "$25") || (reg == "$t9") || (reg == "$25")){
+    if((reg == "$R25") || (reg == "$t9") || (reg == "$25")){
         return "11001";
     }
-    if((reg == "$26") || (reg == "$k0") || (reg == "$26")){
+    if((reg == "$R26") || (reg == "$k0") || (reg == "$26")){
         return "11010";
     }
-    if((reg == "$27") || (reg == "$k1") || (reg == "$27")){
+    if((reg == "$R27") || (reg == "$k1") || (reg == "$27")){
         return "11011";
     }
-    if((reg == "$28") || (reg == "$gp") || (reg == "$28")){
+    if((reg == "$R28") || (reg == "$gp") || (reg == "$28")){
         return "11100";
     }
-    if((reg == "$29") || (reg == "$sp") || (reg == "$29")){
+    if((reg == "$R29") || (reg == "$sp") || (reg == "$29")){
         return "11101";
     }
-    if((reg == "$30") || (reg == "$s8") || (reg == "$30")){
+    if((reg == "$R30") || (reg == "$s8") || (reg == "$30")){
         return "11110";
     }
-    if((reg == "$31") || (reg == "$ra") || (reg == "$31")){
+    if((reg == "$R31") || (reg == "$ra") || (reg == "$31")){
         return "11111";
     }
     return "ERROR";
