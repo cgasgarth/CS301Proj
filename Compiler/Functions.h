@@ -68,4 +68,6 @@ class Converter { //648 or A-51 in book
     void jr(string expression, vector<string> & out); //DONE, VALIDATED KINDA
     void jalr(string expression, vector<string> & out); //DONE, VALIDATED KINDA
     void syscall(vector<string> & out); //DONE  
+    //bonus mips
+    void move(string expression, vector<string> & out);
 };

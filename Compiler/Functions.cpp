@@ -210,7 +210,10 @@ vector<string> Converter::lineTakeIn(string expression, int line){
         syscall(out);
         return out;
     }
-
+    if(command == "move"){
+        move(expression, out);
+        return out;
+    }
     out.push_back("UNDEFINED COMMAND");
     return out;
 }
@@ -620,4 +623,9 @@ void Converter::jalr(string expression, vector<string> & out){
 
 void Converter::syscall(vector<string> & out){
     out.push_back("00000000000000000000000000001100");
+}
+
+void Converter::move(string expression, vector<string> & out){
+    expression += " $zero";
+    add(expression, out);
 }
