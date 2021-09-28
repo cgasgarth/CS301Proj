@@ -5,6 +5,7 @@
 Makefile
 TEST
 ASSEMBLE
+Compare
 
 # Compiled Object files
 *.slo
