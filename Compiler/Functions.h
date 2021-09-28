@@ -69,5 +69,16 @@ class Converter { //648 or A-51 in book
     void jalr(string expression, vector<string> & out); //DONE, VALIDATED KINDA
     void syscall(vector<string> & out); //DONE  
     //bonus mips
+    void sgt(string expression, vector<string> & out);
+    void sge(string expression, vector<string> & out);
+    void sle(string expression, vector<string> & out);
+    void seq(string expression, vector<string> & out);
+    void sne(string expression, vector<string> & out);
     void move(string expression, vector<string> & out);
+    void li(string expression, vector<string> & out);
+    void bge(string expression, vector<string> & out);
+    void bgt(string expression, vector<string> & out);
+    void ble(string expression, vector<string> & out);
+    void blt(string expression, vector<string> & out);
+    void abs(string expression, vector<string> & out);
 };

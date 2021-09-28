@@ -9,7 +9,7 @@ int main(int argc, char** argv){
     Converter c;
     vector<string> out;
     vector<string> lineOut;
-    lineOut = c.lineTakeIn("addi $v0, $v1, -5");
+    lineOut = c.lineTakeIn("addi $a0, $zero, 30", 0);
     out.insert(out.end(), lineOut.begin(), lineOut.end());
     for (vector<string>::iterator t = out.begin(); t != out.end(); ++t) 
     {

@@ -210,8 +210,52 @@ vector<string> Converter::lineTakeIn(string expression, int line){
         syscall(out);
         return out;
     }
+    if(command == "sgt"){
+        sgt(expression, out);
+        return out;
+    }
+    if(command == "sge"){
+        sge(expression, out);
+        return out;
+    }
+    if(command == "sle"){
+        sle(expression, out);
+        return out;
+    }
+    if(command == "seq"){
+        seq(expression, out);
+        return out;
+    }
+    if(command == "sne"){
+        sne(expression, out);
+        return out;
+    }
     if(command == "move"){
         move(expression, out);
+        return out;
+    }
+    if(command == "li"){
+        li(expression, out);
+        return out;
+    }
+    if(command == "bge"){
+        bge(expression, out);
+        return out;
+    }
+    if(command == "bgt"){
+        bgt(expression, out);
+        return out;
+    }
+    if(command == "ble"){
+        ble(expression, out);
+        return out;
+    }
+    if(command == "blt"){
+        blt(expression, out);
+        return out;
+    }
+    if(command == "abs"){
+        abs(expression, out);
         return out;
     }
     out.push_back("UNDEFINED COMMAND");
@@ -355,6 +399,7 @@ label Converter::setJumpsLH(string expression){
 void Converter::convertToHex(int argc, char* argv[]){
     ifstream infile("hexTemp.txt");
     ofstream outfile(argv[2]);
+    outfile << "v3.0 hex words plain" << endl;
     string line;
     while(getline(infile, line)){
         outfile << binaryToHex(line) << endl;
@@ -363,7 +408,7 @@ void Converter::convertToHex(int argc, char* argv[]){
 }
 
 string Converter::binaryToHex(string binaryS){
-    std::string endresult = "0x";
+    string endresult;
 	for(int i = 0; i < binaryS.length(); i = i+4)
 	{
 		endresult += getHexCharacter(binaryS.substr(i,4));
@@ -374,12 +419,12 @@ string Converter::binaryToHex(string binaryS){
     
 char Converter::getHexCharacter(std::string str)
 {
-	if(str.compare("1111") == 0) return 'F';
-	else if(str.compare("1110") == 0) return 'E';
-	else if(str.compare("1101")== 0) return 'D';
-	else if(str.compare("1100")== 0) return 'C';
-	else if(str.compare("1011")== 0) return 'B';
-	else if(str.compare("1010")== 0) return 'A';
+	if(str.compare("1111") == 0) return 'f';
+	else if(str.compare("1110") == 0) return 'e';
+	else if(str.compare("1101")== 0) return 'd';
+	else if(str.compare("1100")== 0) return 'c';
+	else if(str.compare("1011")== 0) return 'b';
+	else if(str.compare("1010")== 0) return 'a';
 	else if(str.compare("1001")== 0) return '9';
 	else if(str.compare("1000")== 0) return '8';
 	else if(str.compare("0111")== 0) return '7';
@@ -625,7 +670,34 @@ void Converter::syscall(vector<string> & out){
     out.push_back("00000000000000000000000000001100");
 }
 
+//BONUS MIPS
+void Converter::sgt(string expression, vector<string> & out){}
+
+void Converter::sge(string expression, vector<string> & out){}
+
+void Converter::sle(string expression, vector<string> & out){}
+
+void Converter::seq(string expression, vector<string> & out){}
+
+void Converter::sne(string expression, vector<string> & out){}
+
 void Converter::move(string expression, vector<string> & out){
-    expression += " $zero";
+    expression += ", $zero";
     add(expression, out);
 }
+
+void Converter::li(string expression, vector<string> & out){
+    int comma = expression.find(',');
+    expression.insert(comma + 1, " $zero,");
+    addi(expression, out);
+}
+
+void Converter::bge(string expression, vector<string> & out){}
+
+void Converter::bgt(string expression, vector<string> & out){}
+
+void Converter::ble(string expression, vector<string> & out){}
+
+void Converter::blt(string expression, vector<string> & out){}
+
+void Converter::abs(string expression, vector<string> & out){}
