@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include <array>
+#include <math.h>
 #include "Functions.h"
 
 using namespace std;
@@ -318,6 +319,9 @@ string Converter::findReg(string expression, int stringI, int i){
 
 string Converter::intToString(string intString, int totalLen){
     int n = stoi(intString);
+    if(n < 0) {
+        n += pow(2, totalLen);
+    }
     string binary;
     while(n!=0) {binary=(n%2==0 ?"0":"1")+binary; n/=2;}
     int remainder = totalLen - binary.length();
@@ -330,6 +334,9 @@ string Converter::intToString(string intString, int totalLen){
 }
 
 string Converter::intToString(int i, int totalLen){
+    if(i < 0) {
+        i += pow(2, totalLen);
+    }
     string binary;
     while(i!=0) {binary=(i%2==0 ?"0":"1")+binary; i/=2;}
     int remainder = totalLen - binary.length();

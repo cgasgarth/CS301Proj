@@ -43,9 +43,9 @@ class Converter { //648 or A-51 in book
     string intToString(int i, int totalLen); //DONE, self explainitory
     void setJumps();
     label setJumpsLH(string expression); //set jumps label helper
-    void convertToHex(int argc, char* argv[]);
-    string binaryToHex(string binaryS);
-    char getHexCharacter(string str);
+    void convertToHex(int argc, char* argv[]); //converts file to hex
+    string binaryToHex(string binaryS); // converts a string to hex
+    char getHexCharacter(string str); //gets single hex char
     string returnLabel(string expression); //DONE, KINDA
     
     //BEGIN MIPS COMMANDS
