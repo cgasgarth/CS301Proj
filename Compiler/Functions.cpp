@@ -357,12 +357,20 @@ void Converter::setJumps(){
         if (line.substr(0, 6) == "000100"){ // beq ND
             struct label label= setJumpsLH(line);
             int offset = label.line - curLine;
+            if(offset < 0){
+                offset++;
+            }
+            else{ offset--; }
             line.replace(line.find("|"), label.name.length() + 1, intToString(offset, 16));
             outfile << line << endl;
         }
         else if(line.substr(0, 6) == "000101"){ //bne
             struct label label= setJumpsLH(line);
             int offset = label.line - curLine;
+            if(offset < 0){
+                offset++;
+            }
+            else{ offset--; }
             line.replace(line.find("|"), label.name.length() + 1, intToString(offset, 16));
             outfile << line << endl;
         }
@@ -619,7 +627,7 @@ void Converter::slt(const string expression, vector<string> & out){
     result += regAddress(registers[1].reg);
     result += regAddress(registers[2].reg);
     result += regAddress(registers[0].reg);
-    result += "00000100000"; //00000 + 0x20
+    result += "00000101010"; //00000 + 0x20
     out.push_back(result);
 }
 

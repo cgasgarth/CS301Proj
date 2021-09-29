@@ -42,7 +42,6 @@ int main(int argc, char** argv){
             binaryOut = c.lineTakeIn(instruction, curLine);
             for (string j: binaryOut){
                 if(j == "Label"){
-                    curLine ++;
                     break;
                 }
                 tempFile << j << endl;
