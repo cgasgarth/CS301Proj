@@ -50,7 +50,7 @@ class Converter { //648 or A-51 in book
     
     //BEGIN MIPS COMMANDS
     void add(string expression, vector<string> & out); //DONE, VALIDATED KINDA
-    void addi(string expression, vector<string> & out); //DONE, VALIDATED KINDA 
+    void addi(string expression, vector<string> & out); //DONE, VALIDATED KINDA, 32 - 64 bit implemented
     void sub(string expression, vector<string> & out); //DONE, VALIDATED KINDA
     void mult(string expression, vector<string> & out); //DONE, VALIDATED KINDA
     void div(string expression, vector<string> & out); //DONE, VALIDATED KINDA

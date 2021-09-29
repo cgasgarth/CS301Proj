@@ -107,7 +107,7 @@ string Converter::regAddress(const string reg){
     if((reg == "$R31") || (reg == "$ra") || (reg == "$31")){
         return "11111";
     }
-    return "ERROR";
+    return "reg address error";
 }
 
 vector<string> Converter::lineTakeIn(string expression, int line){
@@ -314,7 +314,7 @@ string Converter::findReg(string expression, int stringI, int i){
                 return regList.at(j);
             }
         }
-    return "ERROR";
+    return "FindRegError";
 }
 
 string Converter::intToString(string intString, int totalLen){
@@ -407,7 +407,7 @@ label Converter::setJumpsLH(string expression){
     }
     label errorLab; 
     errorLab.line = -1;
-    errorLab.name = "ERROR";
+    errorLab.name = "setJumpsLH Error";
     return errorLab;
 }
 
@@ -490,19 +490,32 @@ void Converter::add(const string expression, vector<string> & out){
 }
 
 void Converter::addi(const string expression, vector<string> & out){
-    array<RegLoc, 3> registers = findRegs(expression, 2);
-    string result = "001000";
-    result += regAddress(registers[1].reg);
-    result += regAddress(registers[0].reg);
     string immediate;
+    int immediateI;
+    array<RegLoc, 3> registers = findRegs(expression, 2);
     for(int i = (expression.length() - 1); i >= 0; i--){
         if(isspace(expression.at(i))){
+            immediateI = stoi(expression.substr(i, expression.length() - 1));
             immediate = intToString(expression.substr(i, expression.length() - 1), 16);
             break;
         }
     }
+    if((immediateI > 32767) && (immediateI < 1073741823)){
+        int quotient = immediateI / 32767;
+        int remainder = immediateI % 32767;
+        string e = "add " + registers[0].reg + ", " + registers[1].reg + ", 32767";
+        for(int j = 0; j < quotient; j++){
+            addi(e, out);
+        }
+        e = "add " + registers[0].reg + ", " + registers[1].reg + ", " + to_string(remainder);
+        addi(e, out);
+        return;
+    }else{
+    string result = "001000";
+    result += regAddress(registers[1].reg);
+    result += regAddress(registers[0].reg);
     result += immediate;
-    out.push_back(result);
+    out.push_back(result); }
 }
 
 void Converter::sub(const string expression, vector<string> & out){
