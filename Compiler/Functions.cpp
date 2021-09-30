@@ -698,7 +698,7 @@ void Converter::syscall(vector<string> & out){
     out.push_back("00000000000000000000000000001100");
 }
 
-//BONUS MIPS
+//BONUS MIPSa
 void Converter::sgt(string expression, vector<string> & out){}
 
 void Converter::sge(string expression, vector<string> & out){}
