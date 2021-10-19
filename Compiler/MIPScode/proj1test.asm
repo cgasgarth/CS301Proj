@@ -1,5 +1,5 @@
 main: 
-addi $a0, $zero, 30 #a0 = n #X
+addi $a0, $zero, 10 #a0 = n #X
   addi $t0, $a0, 1
   sll $t0, $t0, 2
   sub $sp, $sp, $t0 #create an array of size n+1

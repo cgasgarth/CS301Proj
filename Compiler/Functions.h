@@ -17,6 +17,7 @@ struct label{
 };
 class Converter { //648 or A-51 in book
     public:
+    int curLine;
     array<string, 96> regList = {"$R0","$zero","$0","R1","$at","$1", 
                                  "$R2","$v0","$2","$R3","$v1","$3",
                                  "$R4","$a0","$4","$R5","$a1","$5",
@@ -61,10 +62,10 @@ class Converter { //648 or A-51 in book
     void lw(string expression, vector<string> & out); //DONE, VALIDATED KINDA
     void sw(string expression, vector<string> & out); //DONE, VALIDATED KINDA
     void slt(string expression, vector<string> & out); //DONE, VALIDATED KINDA
-    void beq(string expression, vector<string> & out);
-    void bne(string expression, vector<string> & out);
-    void j(string expression, vector<string> & out);
-    void jal(string expression, vector<string> & out);
+    void beq(string expression, vector<string> & out); //DONE, VALIDATED KINDA
+    void bne(string expression, vector<string> & out); //DONE, VALIDATED KINDA
+    void j(string expression, vector<string> & out); //DONE, VALIDATED KINDA 
+    void jal(string expression, vector<string> & out); //DONE, VALIDATED KINDA
     void jr(string expression, vector<string> & out); //DONE, VALIDATED KINDA
     void jalr(string expression, vector<string> & out); //DONE, VALIDATED KINDA
     void syscall(vector<string> & out); //DONE  
@@ -74,8 +75,8 @@ class Converter { //648 or A-51 in book
     void sle(string expression, vector<string> & out);
     void seq(string expression, vector<string> & out);
     void sne(string expression, vector<string> & out);
-    void move(string expression, vector<string> & out);
-    void li(string expression, vector<string> & out);
+    void move(string expression, vector<string> & out); //Done
+    void li(string expression, vector<string> & out); //Done
     void bge(string expression, vector<string> & out);
     void bgt(string expression, vector<string> & out);
     void ble(string expression, vector<string> & out);

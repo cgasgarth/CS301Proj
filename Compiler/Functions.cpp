@@ -107,6 +107,7 @@ string Converter::regAddress(const string reg){
     if((reg == "$R31") || (reg == "$ra") || (reg == "$31")){
         return "11111";
     }
+    cout << reg << endl;
     return "reg address error";
 }
 
@@ -504,18 +505,20 @@ void Converter::addi(const string expression, vector<string> & out){
         int quotient = immediateI / 32767;
         int remainder = immediateI % 32767;
         string e = "add " + registers[0].reg + ", " + registers[1].reg + ", 32767";
+        cout << e << endl;
         for(int j = 0; j < quotient; j++){
-            addi(e, out);
+            add(e, out);
         }
         e = "add " + registers[0].reg + ", " + registers[1].reg + ", " + to_string(remainder);
-        addi(e, out);
+        cout << e << endl;
+        add(e, out);
         return;
-    }else{
+    }
     string result = "001000";
     result += regAddress(registers[1].reg);
     result += regAddress(registers[0].reg);
     result += immediate;
-    out.push_back(result); }
+    out.push_back(result);
 }
 
 void Converter::sub(const string expression, vector<string> & out){
@@ -698,7 +701,7 @@ void Converter::syscall(vector<string> & out){
     out.push_back("00000000000000000000000000001100");
 }
 
-//BONUS MIPSa
+//BONUS MIPS
 void Converter::sgt(string expression, vector<string> & out){}
 
 void Converter::sge(string expression, vector<string> & out){}

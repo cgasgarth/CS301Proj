@@ -1,0 +1,309 @@
+[33mcommit cefc37d9bbaa9a273782b794175f9ace52480b9b[m[33m ([m[1;36mHEAD -> [m[1;32mfeature/BonusMIPS[m[33m)[m
+Author: cgasgarth <cgasgarth@gmail.com>
+Date:   Thu Sep 30 15:54:34 2021 -0400
+
+    still works
+
+[33mcommit ac3cb39479f95dc69956533511fd71479c9bf044[m
+Author: cgasgarth <cgasgarth@gmail.com>
+Date:   Thu Sep 30 15:53:51 2021 -0400
+
+    works?
+
+[33mcommit a30adb6b34b1ce4b2aa3e8f5875d22cb4df64508[m
+Author: cgasgarth <cgasgarth@gmail.com>
+Date:   Wed Sep 29 11:13:57 2021 -0400
+
+    add 32-64 bit addi
+
+[33mcommit a88199b67988033e1d9e02f0b4574908df29ffce[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/feature/BonusMIPS[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m
+Author: cgasgarth <cgasgarth@gmail.com>
+Date:   Tue Sep 28 20:26:54 2021 -0400
+
+    proj1 changes
+
+[33mcommit 909a8cdb97df1e0017710fd138268954ac7cfad9[m
+Author: cgasgarth <cgasgarth@gmail.com>
+Date:   Tue Sep 28 20:26:40 2021 -0400
+
+    Should be done with base MIPS...
+
+[33mcommit 85086b8e9608400d3d20ef6e6d714a088467a261[m
+Author: cgasgarth <cgasgarth@gmail.com>
+Date:   Tue Sep 28 16:48:33 2021 -0400
+
+    update gitignore
+
+[33mcommit 2024f38ad6d9390e04b29d2a5a01681908a07053[m
+Author: cgasgarth <cgasgarth@gmail.com>
+Date:   Tue Sep 28 16:47:38 2021 -0400
+
+    Org changes
+
+[33mcommit 0e98ed8974acd1417dca2170bf7c3146cf6ab837[m
+Author: cgasgarth <cgasgarth@gmail.com>
+Date:   Tue Sep 28 16:44:57 2021 -0400
+
+    Org changes
+
+[33mcommit e79a40d15ef8468d3886319dd3d1012a20584142[m
+Author: cgasgarth <cgasgarth@gmail.com>
+Date:   Tue Sep 28 16:35:13 2021 -0400
+
+    twos complement
+
+[33mcommit 59426fe9d0dcd7ed685078b303f078f902ace0e6[m
+Author: cgasgarth <cgasgarth@gmail.com>
+Date:   Tue Sep 28 16:34:50 2021 -0400
+
+    actually added
+
+[33mcommit 2d5da49648a59122c88efcb79d27c3bee94f6fd1[m
+Author: cgasgarth <cgasgarth@gmail.com>
+Date:   Tue Sep 28 16:34:14 2021 -0400
+
+    add settings.json to ignore
+
+[33mcommit 3a5c08c1de01880c49c220626a5bad82347d4c27[m
+Author: cgasgarth <cgasgarth@gmail.com>
+Date:   Tue Sep 28 16:32:56 2021 -0400
+
+    Implement two's complement
+
+[33mcommit 6b86299c796b2382dad16238d709f41a6edf66a7[m
+Author: cgasgarth <cgasgarth@gmail.com>
+Date:   Tue Sep 28 16:16:45 2021 -0400
+
+    Create compare tool
+
+[33mcommit 8113a9ce70340149ff6de956c4d9104d97a60b7c[m
+Author: cgasgarth <cgasgarth@gmail.com>
+Date:   Mon Sep 27 11:23:50 2021 -0400
+
+    add const in functions
+
+[33mcommit 6dd9bcd15e59b38640716ee25436c454db30fa22[m
+Author: cgasgarth <cgasgarth@gmail.com>
+Date:   Mon Sep 27 11:18:33 2021 -0400
+
+    Fix missing val regFinder
+
+[33mcommit ae71be98eca80d4472c1ce183f761646e2933fa1[m
+Author: cgasgarth <cgasgarth@gmail.com>
+Date:   Sun Sep 26 21:47:13 2021 -0400
+
+    example move
+
+[33mcommit 713c95906aabb283410d66b2b3ea0174fca1a293[m
+Author: cgasgarth <cgasgarth@gmail.com>
+Date:   Sun Sep 26 18:37:26 2021 -0400
+
+    merge feature/Jumps
+
+[33mcommit 4af6a595ad6121d703c20e6ae0a15d37014f9155[m[33m ([m[1;31morigin/feature/Jumps[m[33m, [m[1;32mfeature/Jumps[m[33m)[m
+Author: cgasgarth <cgasgarth@gmail.com>
+Date:   Sun Sep 26 18:35:44 2021 -0400
+
+    jumps should be done
+
+[33mcommit 54be3ac548a705e6dc25a974b08b221d8d6a4ce2[m
+Author: cgasgarth <cgasgarth@gmail.com>
+Date:   Sun Sep 26 16:23:54 2021 -0400
+
+    Set up setJumps
+
+[33mcommit 1c6e9f68b4c92522cc04dff4703159a2360a79da[m
+Author: cgasgarth <cgasgarth@gmail.com>
+Date:   Sun Sep 26 15:04:10 2021 -0400
+
+    Write to out
+
+[33mcommit 3c5860f8f73755b501dbedffa364165a51f58a42[m
+Author: cgasgarth <cgasgarth@gmail.com>
+Date:   Thu Sep 23 15:54:08 2021 -0400
+
+    add some jump functionality
+
+[33mcommit bcd87ed7a5adda6c9e5f345911f54b45b92254b2[m
+Author: cgasgarth <cgasgarth@gmail.com>
+Date:   Thu Sep 23 15:26:47 2021 -0400
+
+    rework main some
+
+[33mcommit 8db8145a91bafa3f4098e6d453fd66e2a5af6fc7[m
+Author: cgasgarth <cgasgarth@gmail.com>
+Date:   Thu Sep 23 15:26:22 2021 -0400
+
+    rework main some
+
+[33mcommit d4c1cb9a22436311036d3b95a2c1624c576dcf16[m
+Author: cgasgarth <cgasgarth@gmail.com>
+Date:   Thu Sep 23 14:55:48 2021 -0400
+
+    current
+
+[33mcommit d8f0e3bfe26dcd5e059985cbf456f00d5a12871f[m
+Merge: 2674253 1f42a8f
+Author: cgasgarth <cgasgarth@gmail.com>
+Date:   Thu Sep 23 14:51:39 2021 -0400
+
+    Merge branch 'feature/bonusMIPS' into main
+
+[33mcommit 267425342f7002a955468a57ae983344de8802c7[m[33m ([m[1;31morigin/feature/CleanExpression[m[33m)[m
+Author: cgasgarth <cgasgarth@gmail.com>
+Date:   Mon Sep 20 17:54:41 2021 -0400
+
+    Add clean line method
+
+[33mcommit 1f42a8fe6c6f2cbc94de0dece4f3eb4b4068c849[m
+Merge: ddb6818 9f260f3
+Author: cgasgarth <cgasgarth@gmail.com>
+Date:   Mon Sep 20 16:34:58 2021 -0400
+
+    Merge branch 'main' into feature/bonusMIPS
+
+[33mcommit 9f260f37406c7dc4472bc4b7faa8e1f0ce7f4650[m
+Merge: 5a3321f 243fc20
+Author: cgasgarth <cgasgarth@gmail.com>
+Date:   Mon Sep 20 16:31:43 2021 -0400
+
+    Merge branch 'ReadingFileInMain'
+
+[33mcommit ddb6818cc3bd053333141c1f29a728dbf87a1f9e[m
+Merge: 5a3321f 243fc20
+Author: cgasgarth <cgasgarth@gmail.com>
+Date:   Mon Sep 20 16:28:56 2021 -0400
+
+    Merge branch 'ReadingFileInMain' of https://github.com/cgasgarth/CS301Proj into feature/bonusMIPS
+
+[33mcommit 243fc209b094118d6ead1acf4b55ecd977469f49[m[33m ([m[1;31morigin/ReadingFileInMain[m[33m, [m[1;32mReadingFileInMain[m[33m)[m
+Author: Kevorc <kevorc.ibrahimian@richmond.edu>
+Date:   Mon Sep 20 16:23:38 2021 -0400
+
+    Added functionality that filters comments
+
+[33mcommit 5a3321fb31e6d6d0a7f609452b035820622418b9[m[33m ([m[1;31morigin/feature/lineTakeIn[m[33m)[m
+Author: cgasgarth <cgasgarth@gmail.com>
+Date:   Sun Sep 19 17:31:43 2021 -0400
+
+    Final changes
+
+[33mcommit 0db56dc149d1d86af7f1fa993de4198581f0e7d4[m
+Author: cgasgarth <cgasgarth@gmail.com>
+Date:   Sun Sep 19 17:24:43 2021 -0400
+
+    all non jump functions done(pending validation)
+
+[33mcommit 6cd6a7020940b5aa02ca20a2e564d9b403d7e122[m
+Author: cgasgarth <cgasgarth@gmail.com>
+Date:   Sun Sep 19 16:41:00 2021 -0400
+
+    Add logic shifts
+
+[33mcommit 1988389af2ef4bc809d9f6092535d9d2ab30d89c[m
+Author: cgasgarth <cgasgarth@gmail.com>
+Date:   Sun Sep 19 16:11:42 2021 -0400
+
+    Add up to mflo; update README
+
+[33mcommit c280159f4542484bf5f1b3b69436a91645951028[m
+Author: cgasgarth <cgasgarth@gmail.com>
+Date:   Sun Sep 19 15:52:58 2021 -0400
+
+    Add sub
+
+[33mcommit d1aab667ba41193c7a9011bba2f4a99f3b048119[m
+Author: cgasgarth <cgasgarth@gmail.com>
+Date:   Sun Sep 19 15:48:25 2021 -0400
+
+    rework functions to vector return
+
+[33mcommit 6479e2a5340ed3ae42c6e1a1f5ac23774da50e97[m
+Author: cgasgarth <cgasgarth@gmail.com>
+Date:   Fri Sep 17 19:47:14 2021 -0400
+
+    Fix findRegs, add findReg
+
+[33mcommit 5764daea4f718bc2a1e12291f81c4e18df50bd86[m
+Author: cgasgarth <cgasgarth@gmail.com>
+Date:   Fri Sep 17 19:34:44 2021 -0400
+
+    Findreg kinda works... saving for later
+
+[33mcommit d625f0b03ae263e7e1a6d32e6923abbc35e923b9[m
+Author: cgasgarth <cgasgarth@gmail.com>
+Date:   Fri Sep 17 14:13:25 2021 -0400
+
+    lineTakeIn Command works, gitignore updates
+
+[33mcommit 8c29fc5dff7b5e58ee6cb101466c7148b69fad7a[m
+Author: cgasgarth <cgasgarth@gmail.com>
+Date:   Fri Sep 17 14:13:05 2021 -0400
+
+    lineTakeIn finds command, GIT ignore updates
+
+[33mcommit 771b416c754a78b94663d8ed6fe3cc0e9d7c28ed[m
+Author: cgasgarth <cgasgarth@gmail.com>
+Date:   Fri Sep 17 13:37:24 2021 -0400
+
+    Functions.h mostly filled out, README updated
+
+[33mcommit 3c49aaf49f3a47d8432f50ae7bf85e92fb62b9c9[m
+Author: cgasgarth <cgasgarth@gmail.com>
+Date:   Thu Sep 16 20:36:44 2021 -0400
+
+    add Makefile to .gitignore
+
+[33mcommit ca150a48e1e09db128162c40a6ae58e793beb933[m
+Author: cgasgarth <cgasgarth@gmail.com>
+Date:   Thu Sep 16 20:35:53 2021 -0400
+
+    Created makefile; everything as string
+
+[33mcommit f8c164486383ad822c69d925cbf070e7b07ed61d[m
+Author: cgasgarth <cgasgarth@gmail.com>
+Date:   Thu Sep 16 18:43:31 2021 -0400
+
+    Setting up Functions.cpp/.h
+
+[33mcommit be5e6a0472f78074228e03000c915be7f49cd39b[m
+Author: cgasgarth <cgasgarth@gmail.com>
+Date:   Thu Sep 16 18:15:40 2021 -0400
+
+    Basic file read loop, example files
+
+[33mcommit ccbb7afbbab87df4e0664d27eb9d51dfefeb3cfd[m
+Author: cgasgarth <cgasgarth@gmail.com>
+Date:   Thu Sep 16 16:49:22 2021 -0400
+
+    rework files
+
+[33mcommit a17d2e16d741b8fcfd9ab8d7b0bf866538f5ded4[m
+Author: cgasgarth <cgasgarth@gmail.com>
+Date:   Thu Sep 16 16:48:41 2021 -0400
+
+    rework files
+
+[33mcommit 55f4f4fd6608414e4cc937d4842563da0c10332b[m
+Author: cgasgarth <cgasgarth@gmail.com>
+Date:   Thu Sep 16 16:34:51 2021 -0400
+
+    Update README
+
+[33mcommit e112f52b7f1174341a22b44b57289d2ed3996a1d[m
+Author: Kevorc Ibrahimian <kevorc@Kevorcs-MacBook-Pro.local>
+Date:   Thu Sep 16 15:48:32 2021 -0400
+
+    :# Please enter the commit message for your changes. Lines starting
+
+[33mcommit 182b0fd2f27e2dc919da78f35da6f86396650217[m
+Author: cgasgarth <cgasgarth@gmail.com>
+Date:   Thu Sep 16 15:41:45 2021 -0400
+
+    Initial files
+
+[33mcommit b83c47c23f2b5a0977a312139424d38588e6160e[m
+Author: cgasgarth <64235119+cgasgarth@users.noreply.github.com>
+Date:   Thu Sep 16 15:38:52 2021 -0400
+
+    Initial commit
