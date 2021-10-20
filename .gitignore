@@ -36,7 +36,7 @@ Compare
 *.exe
 *.out
 *.app
-
 #vscode
 .vscode/settings.json
 .vscode/settings.json
+Compiler/out.txt
