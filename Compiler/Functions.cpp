@@ -714,10 +714,10 @@ void Converter::sgt(string expression, vector<string> & out, int line){
     string jump1 = "j LTEQ" + sLine;
     this->j(jump1, out);
 
-    string GE = "GE" + sLine + ":";
+    string GE = "GE" + sLine;
     label tempL;
     tempL.name = GE;
-    tempL.line = line + 4;
+    tempL.line = line + 3;
     labels.push_back(tempL);
     out.push_back("Label");
 
@@ -730,20 +730,20 @@ void Converter::sgt(string expression, vector<string> & out, int line){
     string jump2 = "j end" + sLine;
     this->j(jump2, out);
 
-    string LTEQ = "LTEQ" + sLine + ":";
+    string LTEQ = "LTEQ" + sLine;
     tempL;
     tempL.name = LTEQ;
-    tempL.line = line + 7;
+    tempL.line = line + 6;
     labels.push_back(tempL);
     out.push_back("Label");
 
     string addi2 = "addi " + registers[0].reg + ", $zero, 0";
     this->addi(addi2, out);
 
-    string end = "end" + sLine + ":";
+    string end = "end" + sLine;
     tempL;
-    tempL.name = LTEQ;
-    tempL.line = line + 8;
+    tempL.name = end;
+    tempL.line = line + 7;
     labels.push_back(tempL);
     out.push_back("Label");
 }
