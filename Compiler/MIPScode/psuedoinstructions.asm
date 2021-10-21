@@ -1,7 +1,7 @@
 # sgt $s2, $s1, $s0
 # translates to
-slt $ar, $s1, $s0
-beq $ar, $zero, GE 
+slt $at, $s1, $s0
+beq $at, $zero, GE 
 j LTEQ
 GE:
 beq $s1, $s2, LTEQ
@@ -13,8 +13,8 @@ end:
 
 # sge $s2, $s1, $s0
 # translates to
-slt $ar, $s1, $s0
-beq $ar, $zero, GTEQ
+slt $at, $s1, $s0
+beq $at, $zero, GTEQ
 addi $s2, $zero, 0
 j end
 GTEQ:

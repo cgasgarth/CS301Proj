@@ -70,16 +70,16 @@ class Converter { //648 or A-51 in book
     void jalr(string expression, vector<string> & out); //DONE, VALIDATED KINDA
     void syscall(vector<string> & out); //DONE  
     //bonus mips
-    void sgt(string expression, vector<string> & out);
-    void sge(string expression, vector<string> & out);
-    void sle(string expression, vector<string> & out);
-    void seq(string expression, vector<string> & out);
-    void sne(string expression, vector<string> & out);
+    void sgt(string expression, vector<string> & out, int line);
+    void sge(string expression, vector<string> & out, int line);
+    void sle(string expression, vector<string> & out, int line);
+    void seq(string expression, vector<string> & out, int line);
+    void sne(string expression, vector<string> & out, int line);
     void move(string expression, vector<string> & out); //Done
     void li(string expression, vector<string> & out); //Done
-    void bge(string expression, vector<string> & out);
-    void bgt(string expression, vector<string> & out);
-    void ble(string expression, vector<string> & out);
-    void blt(string expression, vector<string> & out);
-    void abs(string expression, vector<string> & out);
+    void bge(string expression, vector<string> & out, int line);
+    void bgt(string expression, vector<string> & out, int line);
+    void ble(string expression, vector<string> & out, int line);
+    void blt(string expression, vector<string> & out, int line);
+    void abs(string expression, vector<string> & out, int line);
 };

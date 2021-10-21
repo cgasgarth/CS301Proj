@@ -41,11 +41,11 @@ int main(int argc, char** argv){
         if(instruction.length() > 0){
             binaryOut = c.lineTakeIn(instruction, curLine);
             for (string j: binaryOut){
-                if(j == "Label"){
-                    break;
+                if(j == "Label"){}
+                else {
+                    tempFile << j << endl;
+                    curLine ++;
                 }
-                tempFile << j << endl;
-                curLine ++;
             } 
         }
         binaryOut.clear();

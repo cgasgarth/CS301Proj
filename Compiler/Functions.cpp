@@ -213,23 +213,23 @@ vector<string> Converter::lineTakeIn(string expression, int line){
         return out;
     }
     if(command == "sgt"){
-        sgt(expression, out);
+        sgt(expression, out, line);
         return out;
     }
     if(command == "sge"){
-        sge(expression, out);
+        sge(expression, out, line);
         return out;
     }
     if(command == "sle"){
-        sle(expression, out);
+        sle(expression, out, line);
         return out;
     }
     if(command == "seq"){
-        seq(expression, out);
+        seq(expression, out, line);
         return out;
     }
     if(command == "sne"){
-        sne(expression, out);
+        sne(expression, out, line);
         return out;
     }
     if(command == "move"){
@@ -241,23 +241,23 @@ vector<string> Converter::lineTakeIn(string expression, int line){
         return out;
     }
     if(command == "bge"){
-        bge(expression, out);
+        bge(expression, out, line);
         return out;
     }
     if(command == "bgt"){
-        bgt(expression, out);
+        bgt(expression, out, line);
         return out;
     }
     if(command == "ble"){
-        ble(expression, out);
+        ble(expression, out, line);
         return out;
     }
     if(command == "blt"){
-        blt(expression, out);
+        blt(expression, out, line);
         return out;
     }
     if(command == "abs"){
-        abs(expression, out);
+        abs(expression, out, line);
         return out;
     }
     out.push_back("UNDEFINED COMMAND");
@@ -390,7 +390,7 @@ void Converter::setJumps(){
         }
         curLine++;             
     }
-    remove("jumpsTemp.txt");
+    //remove("jumpsTemp.txt");
 }
 
 label Converter::setJumpsLH(string expression){
@@ -666,7 +666,6 @@ void Converter::bne(const string expression, vector<string> & out){
 }
 
 void Converter::j(const string expression, vector<string> & out){
-    array<RegLoc, 3> registers = findRegs(expression, 1);
     string result = "000010";
     result += "|" + returnLabel(expression);
     out.push_back(result);
@@ -702,15 +701,60 @@ void Converter::syscall(vector<string> & out){
 }
 
 //BONUS MIPS
-void Converter::sgt(string expression, vector<string> & out){}
+void Converter::sgt(string expression, vector<string> & out, int line){
+    string sLine = to_string(line);
+    array<RegLoc, 3> registers = findRegs(expression, 2);
 
-void Converter::sge(string expression, vector<string> & out){}
+    string slt = "slt $at, " + registers[1].reg + ", " + registers[2].reg;
+    this->slt(slt, out);
 
-void Converter::sle(string expression, vector<string> & out){}
+    string beq = "beq $at, $zero, GE" + sLine;
+    this->beq(beq, out);
 
-void Converter::seq(string expression, vector<string> & out){}
+    string jump1 = "j LTEQ" + sLine;
+    this->j(jump1, out);
 
-void Converter::sne(string expression, vector<string> & out){}
+    string GE = "GE" + sLine + ":";
+    label tempL;
+    tempL.name = GE;
+    tempL.line = line + 4;
+    labels.push_back(tempL);
+    out.push_back("Label");
+
+    string beq2 = "beq " + registers[1].reg + ", " + registers[0].reg + ", LTEQ" + sLine;
+    this->beq(beq2, out);
+
+    string addi = "addi " + registers[0].reg + ", $zero, 1";
+    this->addi(addi, out);
+
+    string jump2 = "j end" + sLine;
+    this->j(jump2, out);
+
+    string LTEQ = "LTEQ" + sLine + ":";
+    tempL;
+    tempL.name = LTEQ;
+    tempL.line = line + 7;
+    labels.push_back(tempL);
+    out.push_back("Label");
+
+    string addi2 = "addi " + registers[0].reg + ", $zero, 0";
+    this->addi(addi2, out);
+
+    string end = "end" + sLine + ":";
+    tempL;
+    tempL.name = LTEQ;
+    tempL.line = line + 8;
+    labels.push_back(tempL);
+    out.push_back("Label");
+}
+    
+void Converter::sge(string expression, vector<string> & out, int line){}
+
+void Converter::sle(string expression, vector<string> & out, int line){}
+
+void Converter::seq(string expression, vector<string> & out, int line){}
+
+void Converter::sne(string expression, vector<string> & out, int line){}
 
 void Converter::move(string expression, vector<string> & out){
     expression += ", $zero";
@@ -723,12 +767,12 @@ void Converter::li(string expression, vector<string> & out){
     addi(expression, out);
 }
 
-void Converter::bge(string expression, vector<string> & out){}
+void Converter::bge(string expression, vector<string> & out, int line){}
 
-void Converter::bgt(string expression, vector<string> & out){}
+void Converter::bgt(string expression, vector<string> & out, int line){}
 
-void Converter::ble(string expression, vector<string> & out){}
+void Converter::ble(string expression, vector<string> & out, int line){}
 
-void Converter::blt(string expression, vector<string> & out){}
+void Converter::blt(string expression, vector<string> & out, int line){}
 
-void Converter::abs(string expression, vector<string> & out){}
+void Converter::abs(string expression, vector<string> & out, int line){}
