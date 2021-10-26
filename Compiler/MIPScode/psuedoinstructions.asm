@@ -1,59 +1,59 @@
 # sgt $s2, $s1, $s0
 # translates to
 slt $at, $s1, $s0
-beq $at, $zero, GE 
-j LTEQ
-GE:
-beq $s1, $s2, LTEQ
+beq $at, $zero, GE1
+j LTEQ1
+GE1:
+beq $s1, $s2, LTEQ1
 addi $s2, $zero, 1
-j end
-LTEQ:
+j end1
+LTEQ1:
 addi $s2, $zero, 0
-end:
+end1:
 
 # sge $s2, $s1, $s0
 # translates to
 slt $at, $s1, $s0
-beq $at, $zero, GTEQ
+beq $at, $zero, GTEQ2
 addi $s2, $zero, 0
-j end
-GTEQ:
+j end2
+GTEQ2:
 addi $s2, $zero, 1
-end:
+end2:
 
-# $sle $s2, $s1, $s0
+# sle $s2, $s1, $s0
 # translates to
-slt $ar, $s1, $s0
-beq $ar, $zero, GTEQ
+slt $at, $s1, $s0
+beq $at, $zero, GTEQ3
 addi $s2, $zero, 1
-j end
-GTEQ:
-beq $s1, $s0, EQ
+j end3
+GTEQ3:
+beq $s1, $s0, EQ3
 addi $s2, $zero, 0
-j end
-EQ:
+j end3
+EQ3:
 addi $s2, $zero, 1
-end:
+end3:
 
 # seq $s2, $s1, $s0
 # translates to
-sub $ar, $s1, $s0
-beq $ar, $zero, EQ
+sub $at, $s1, $s0
+beq $at, $zero, EQ4
 addi $s2, $zero, 0
-j end
-EQ:
+j end4
+EQ4:
 addi $s2, $zero, 1
-end:
+end4:
 
 # sne $s2, $s1, $s0
 # translates to
-sub $ar, $s1, $s0
-beq $ar, $zero, EQ
+sub $at, $s1, $s0
+beq $at, $zero, EQ5
 addi $s2, $zero, 1
-j end
-EQ:
+j end5
+EQ5:
 addi $s2, $zero, 0
-end:
+end5:
 
 # li $s0, 10
 # translates to

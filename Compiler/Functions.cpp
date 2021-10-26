@@ -504,14 +504,12 @@ void Converter::addi(const string expression, vector<string> & out){
     if((immediateI > 32767) && (immediateI < 1073741823)){
         int quotient = immediateI / 32767;
         int remainder = immediateI % 32767;
-        string e = "add " + registers[0].reg + ", " + registers[1].reg + ", 32767";
-        cout << e << endl;
+        string e = "addi " + registers[0].reg + ", " + registers[1].reg + ", 32767";
         for(int j = 0; j < quotient; j++){
-            add(e, out);
+            addi(e, out);
         }
-        e = "add " + registers[0].reg + ", " + registers[1].reg + ", " + to_string(remainder);
-        cout << e << endl;
-        add(e, out);
+        e = "addi " + registers[0].reg + ", " + registers[1].reg + ", " + to_string(remainder);
+        addi(e, out);
         return;
     }
     string result = "001000";
@@ -748,9 +746,89 @@ void Converter::sgt(string expression, vector<string> & out, int line){
     out.push_back("Label");
 }
     
-void Converter::sge(string expression, vector<string> & out, int line){}
+void Converter::sge(string expression, vector<string> & out, int line){
+    string sLine = to_string(line);
+    array<RegLoc, 3> registers = findRegs(expression, 2);
+    //sge $s2, $s1, $s0
+    string slt = "slt $at, " + registers[1].reg + ", " + registers[2].reg; //stl $at, $s1, $s0
+    this->slt(slt, out);
 
-void Converter::sle(string expression, vector<string> & out, int line){}
+    string beq = "beq $at, $zero, GTEQ" + sLine; //beq $at, $zero, GTEQ
+    this->beq(beq, out);
+
+    string addi = "addi " + registers[0].reg + ", $zero, 0"; //addi $s2, $zero, 0
+    this->addi(addi, out);
+
+    string jump1 = "j end" + sLine; //j end
+    this->j(jump1, out);
+
+    string GTEQ = "GTEQ" + sLine;
+    label tempL;
+    tempL.name = GTEQ;
+    tempL.line = line + 4;
+    labels.push_back(tempL);
+    out.push_back("Label");
+
+    addi = "addi " + registers[0].reg + ", $zero, 1";
+    this->addi(addi, out);
+
+    string end = "end" + sLine;
+    tempL;
+    tempL.name = end;
+    tempL.line = line + 5;
+    labels.push_back(tempL);
+    out.push_back("Label");
+}
+
+void Converter::sle(string expression, vector<string> & out, int line){
+    string sLine = to_string(line);
+    array<RegLoc, 3> registers = findRegs(expression, 2);
+
+    string slt = "slt $at, " + registers[1].reg + ", " + registers[2].reg;
+    this->slt(slt, out);
+
+    string beq = "beq $at, $zero, GTEQ" + sLine;
+    this->beq(beq, out);
+
+    string addi = "addi " + registers[0].reg + ", $zero, 1";
+    this->addi(addi, out);
+
+    string jump1 = "j end" + sLine;
+    this->j(jump1, out);
+
+    string GTEQ = "GTEQ" + sLine;
+    label tempL;
+    tempL.name = GTEQ;
+    tempL.line = line + 4;
+    labels.push_back(tempL);
+    out.push_back("Label");
+
+    string beq2 = "beq " + registers[1].reg + ", " + registers[2].reg + ", EQ" + sLine;
+    this->beq(beq2, out);
+
+    addi = "addi " + registers[0].reg + ", $zero, 0";
+    this->addi(addi, out);
+
+    string jump2 = "j end" + sLine;
+    this->j(jump2, out);
+
+    string EQ = "EQ" + sLine;
+    tempL;
+    tempL.name = EQ;
+    tempL.line = line + 7;
+    labels.push_back(tempL);
+    out.push_back("Label");
+
+    addi = "addi " + registers[0].reg + ", $zero, 1";
+    this->addi(addi, out);
+
+    string end = "end" + sLine;
+    tempL;
+    tempL.name = end;
+    tempL.line = line + 8;
+    labels.push_back(tempL);
+    out.push_back("Label");
+}
 
 void Converter::seq(string expression, vector<string> & out, int line){}
 
