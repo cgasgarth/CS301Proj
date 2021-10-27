@@ -212,6 +212,34 @@ vector<string> Converter::lineTakeIn(string expression, int line){
         syscall(out);
         return out;
     }
+    if(command == "and"){
+        andC(expression, out);
+        return out;
+    }
+    if(command == "or"){
+        orC(expression, out);
+        return out;
+    }
+    if(command == "nor"){
+        norC(expression, out);
+        return out;
+    }
+    if(command == "xor"){
+        xorC(expression, out);
+        return out;
+    }
+    if(command == "andi"){
+        andiC(expression, out);
+        return out;
+    }
+    if(command == "ori"){
+        oriC(expression, out);
+        return out;
+    }
+    if(command == "xori"){
+        xoriC(expression, out);
+        return out;
+    }
     if(command == "sgt"){
         sgt(expression, out, line);
         return out;
@@ -259,7 +287,7 @@ vector<string> Converter::lineTakeIn(string expression, int line){
     if(command == "abs"){
         abs(expression, out, line);
         return out;
-    }
+    } 
     out.push_back("UNDEFINED COMMAND");
     return out;
 }
@@ -501,7 +529,18 @@ void Converter::addi(const string expression, vector<string> & out){
             break;
         }
     }
-    if((immediateI > 32767) && (immediateI < 1073741823)){
+    if((immediateI > 32767) && (immediateI < 2147483647)){
+        int quotient = immediateI / 32767;
+        int remainder = immediateI % 32767;
+        string e = "addi " + registers[0].reg + ", " + registers[1].reg + ", 32767";
+        for(int j = 0; j < quotient; j++){
+            addi(e, out);
+        }
+        e = "addi " + registers[0].reg + ", " + registers[1].reg + ", " + to_string(remainder);
+        addi(e, out);
+        return;
+    }
+    if((immediateI < (-32768)) && (immediateI > -2147483647)){
         int quotient = immediateI / 32767;
         int remainder = immediateI % 32767;
         string e = "addi " + registers[0].reg + ", " + registers[1].reg + ", 32767";
@@ -697,7 +736,93 @@ void Converter::jalr(const string expression, vector<string> & out){
 void Converter::syscall(vector<string> & out){
     out.push_back("00000000000000000000000000001100");
 }
-
+void Converter::andC(string expression, vector<string> & out){
+    array<RegLoc, 3> registers = findRegs(expression, 3);
+    string result = "000000";
+    result += regAddress(registers[1].reg);
+    result += regAddress(registers[2].reg);
+    result += regAddress(registers[0].reg);
+    result += "00000100100"; //00000 + 0x20
+    out.push_back(result);
+}  
+void Converter::orC(string expression, vector<string> & out){
+    array<RegLoc, 3> registers = findRegs(expression, 3);
+    string result = "000000";
+    result += regAddress(registers[1].reg);
+    result += regAddress(registers[2].reg);
+    result += regAddress(registers[0].reg);
+    result += "00000100101"; //00000 + 0x20
+    out.push_back(result);
+}
+void Converter::norC(string expression, vector<string> & out){
+    array<RegLoc, 3> registers = findRegs(expression, 3);
+    string result = "000000";
+    result += regAddress(registers[1].reg);
+    result += regAddress(registers[2].reg);
+    result += regAddress(registers[0].reg);
+    result += "00000100111"; //00000 + 0x20
+    out.push_back(result);
+}
+void Converter::xorC(string expression, vector<string> & out){
+    array<RegLoc, 3> registers = findRegs(expression, 3);
+    string result = "000000";
+    result += regAddress(registers[1].reg);
+    result += regAddress(registers[2].reg);
+    result += regAddress(registers[0].reg);
+    result += "00000100110"; //00000 + 0x20
+    out.push_back(result);
+}
+void Converter::andiC(string expression, vector<string> & out){
+    string immediate;
+    int immediateI;
+    array<RegLoc, 3> registers = findRegs(expression, 2);
+    for(int i = (expression.length() - 1); i >= 0; i--){
+        if(isspace(expression.at(i))){
+            immediateI = stoi(expression.substr(i, expression.length() - 1));
+            immediate = intToString(expression.substr(i, expression.length() - 1), 16);
+            break;
+        }
+    }
+    string result = "001100";
+    result += regAddress(registers[1].reg);
+    result += regAddress(registers[0].reg);
+    result += immediate;
+    out.push_back(result);
+}
+void Converter::oriC(string expression, vector<string> & out){
+    string immediate;
+    int immediateI;
+    array<RegLoc, 3> registers = findRegs(expression, 2);
+    for(int i = (expression.length() - 1); i >= 0; i--){
+        if(isspace(expression.at(i))){
+            immediateI = stoi(expression.substr(i, expression.length() - 1));
+            immediate = intToString(expression.substr(i, expression.length() - 1), 16);
+            break;
+        }
+    }
+    string result = "001101";
+    result += regAddress(registers[1].reg);
+    result += regAddress(registers[0].reg);
+    result += immediate;
+    out.push_back(result);
+}
+void Converter::xoriC(string expression, vector<string> & out){
+    string immediate;
+    int immediateI;
+    array<RegLoc, 3> registers = findRegs(expression, 2);
+    for(int i = (expression.length() - 1); i >= 0; i--){
+        if(isspace(expression.at(i))){
+            immediateI = stoi(expression.substr(i, expression.length() - 1));
+            immediate = intToString(expression.substr(i, expression.length() - 1), 16);
+            break;
+        }
+    }
+    string result = "001110";
+    result += regAddress(registers[1].reg);
+    result += regAddress(registers[0].reg);
+    result += immediate;
+    out.push_back(result);
+}
 //BONUS MIPS
 void Converter::sgt(string expression, vector<string> & out, int line){
     string sLine = to_string(line);

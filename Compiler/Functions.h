@@ -68,7 +68,14 @@ class Converter { //648 or A-51 in book
     void jal(string expression, vector<string> & out); //DONE, VALIDATED KINDA
     void jr(string expression, vector<string> & out); //DONE, VALIDATED KINDA
     void jalr(string expression, vector<string> & out); //DONE, VALIDATED KINDA
-    void syscall(vector<string> & out); //DONE  
+    void syscall(vector<string> & out);
+    void andC(string expression, vector<string> & out);  
+    void orC(string expression, vector<string> & out);
+    void norC(string expression, vector<string> & out);
+    void xorC(string expression, vector<string> & out);
+    void andiC(string expression, vector<string> & out);
+    void oriC(string expression, vector<string> & out);
+    void xoriC(string expression, vector<string> & out);
     //bonus mips
     void sgt(string expression, vector<string> & out, int line);
     void sge(string expression, vector<string> & out, int line);
