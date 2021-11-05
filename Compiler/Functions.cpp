@@ -386,20 +386,12 @@ void Converter::setJumps(){
         if (line.substr(0, 6) == "000100"){ // beq ND
             struct label label= setJumpsLH(line);
             int offset = label.line - curLine;
-            if(offset < 0){
-                offset++;
-            }
-            else{ offset--; }
             line.replace(line.find("|"), label.name.length() + 1, intToString(offset, 16));
             outfile << line << endl;
         }
         else if(line.substr(0, 6) == "000101"){ //bne
             struct label label= setJumpsLH(line);
             int offset = label.line - curLine;
-            if(offset < 0){
-                offset++;
-            }
-            else{ offset--; }
             line.replace(line.find("|"), label.name.length() + 1, intToString(offset, 16));
             outfile << line << endl;
         }
@@ -418,7 +410,7 @@ void Converter::setJumps(){
         }
         curLine++;             
     }
-    //remove("jumpsTemp.txt");
+    remove("jumpsTemp.txt");
 }
 
 label Converter::setJumpsLH(string expression){
@@ -854,7 +846,6 @@ void Converter::sgt(string expression, vector<string> & out, int line){
     this->j(jump2, out);
 
     string LTEQ = "LTEQ" + sLine;
-    tempL;
     tempL.name = LTEQ;
     tempL.line = line + 6;
     labels.push_back(tempL);
@@ -864,7 +855,6 @@ void Converter::sgt(string expression, vector<string> & out, int line){
     this->addi(addi2, out);
 
     string end = "end" + sLine;
-    tempL;
     tempL.name = end;
     tempL.line = line + 7;
     labels.push_back(tempL);
@@ -898,7 +888,6 @@ void Converter::sge(string expression, vector<string> & out, int line){
     this->addi(addi, out);
 
     string end = "end" + sLine;
-    tempL;
     tempL.name = end;
     tempL.line = line + 5;
     labels.push_back(tempL);
@@ -938,7 +927,6 @@ void Converter::sle(string expression, vector<string> & out, int line){
     this->j(jump2, out);
 
     string EQ = "EQ" + sLine;
-    tempL;
     tempL.name = EQ;
     tempL.line = line + 7;
     labels.push_back(tempL);
@@ -948,7 +936,6 @@ void Converter::sle(string expression, vector<string> & out, int line){
     this->addi(addi, out);
 
     string end = "end" + sLine;
-    tempL;
     tempL.name = end;
     tempL.line = line + 8;
     labels.push_back(tempL);

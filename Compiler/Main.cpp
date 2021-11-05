@@ -31,14 +31,19 @@ int main(int argc, char** argv){
     Converter c;
     vector<string> binaryOut;
     int curLine = 0;
-
     while(getline(infile, line)){
         int i = 0;
+        bool space = true;
         while((i < line.length()) && (line[i] != '#') && (line[i] != '\r')){
-            instruction += line[i];
+            if (&line[i] != " "){
+                space = true;
+            }
+            if(space == true){
+                instruction += line[i];
+                }
             i++;
-        }
-        if(instruction.length() > 0){
+            }
+        if(instruction.length() > 1){
             binaryOut = c.lineTakeIn(instruction, curLine);
             for (string j: binaryOut){
                 if(j == "Label"){}
