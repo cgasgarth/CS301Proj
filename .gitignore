@@ -2,7 +2,6 @@
 *.d
 
 #Generated files, makefile
-Makefile
 TEST
 ASSEMBLE
 Compare
