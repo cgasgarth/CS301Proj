@@ -107,7 +107,6 @@ string Converter::regAddress(const string reg){
     if((reg == "$R31") || (reg == "$ra") || (reg == "$31")){
         return "11111";
     }
-    cout << reg << endl;
     return "reg address error";
 }
 
@@ -288,7 +287,7 @@ vector<string> Converter::lineTakeIn(string expression, int line){
         abs(expression, out, line);
         return out;
     } 
-    out.push_back("UNDEFINED COMMAND");
+    out.push_back("00000000000000000000000000000000");
     return out;
 }
 
@@ -384,7 +383,7 @@ void Converter::setJumps(){
     int curLine = 0;
     while(getline(tempR, line)){ //Rewrite out.txt 
         if (line.substr(0, 6) == "000100"){ // beq ND
-            struct label label= setJumpsLH(line);
+            struct label label = setJumpsLH(line);
             int offset = label.line - curLine;
             line.replace(line.find("|"), label.name.length() + 1, intToString(offset, 16));
             outfile << line << endl;
@@ -957,12 +956,60 @@ void Converter::li(string expression, vector<string> & out){
     addi(expression, out);
 }
 
-void Converter::bge(string expression, vector<string> & out, int line){}
+void Converter::bge(string expression, vector<string> & out, int line){ // Maybe done? 
+    // bge $s0, $s1, label
+    // translates to
+    // slt $at, $s0, $s1
+    // beq $at, $zero, label
+    string label = returnLabel(expression);
+    array<RegLoc, 3> registers = findRegs(expression, 2);
+    
+    string slt = "slt $at, " + registers[0].reg + ", " + registers[1].reg;
+    this->slt(slt, out);
+    slt = "beq $at, $zero, " + label;
+    this->beq(slt, out);
+}
 
-void Converter::bgt(string expression, vector<string> & out, int line){}
+void Converter::bgt(string expression, vector<string> & out, int line){
+    // # bgt $s0, $s1, label
+    // # translates to
+    // slt $at, $s1, $s0
+    // bne $at, $zero, label   
+    string label = returnLabel(expression);
+    array<RegLoc, 3> registers = findRegs(expression, 2);
+    
+    string slt = "slt $at, " + registers[1].reg + ", " + registers[0].reg;
+    this->slt(slt, out);
+    slt = "bne $at, $zero, " + label;
+    this->bne(slt, out);
+}
 
-void Converter::ble(string expression, vector<string> & out, int line){}
+void Converter::ble(string expression, vector<string> & out, int line){ //hope these work
+    // # ble $s0, $s1, label
+    // # translates to
+    // slt $at, $s1, $s0
+    // beq $at, $zero, label
+    string label = returnLabel(expression);
+    array<RegLoc, 3> registers = findRegs(expression, 2);
+    
+    string slt = "slt $at, " + registers[1].reg + ", " + registers[0].reg;
+    this->slt(slt, out);
+    slt = "beq $at, $zero, " + label;
+    this->beq(slt, out);
+}
 
-void Converter::blt(string expression, vector<string> & out, int line){}
+void Converter::blt(string expression, vector<string> & out, int line){
+    // # blt $s0, $s1, label
+    // # translates to
+    // slt $at, $s0, $s1
+    // bne $at, $zero, label
+    string label = returnLabel(expression);
+    array<RegLoc, 3> registers = findRegs(expression, 2);
+    
+    string slt = "slt $at, " + registers[0].reg + ", " + registers[1].reg;
+    this->slt(slt, out);
+    slt = "bne $at, $zero, " + label;
+    this->bne(slt, out);
+}
 
 void Converter::abs(string expression, vector<string> & out, int line){}

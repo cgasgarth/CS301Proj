@@ -1,83 +1,43 @@
-	.text #everything after "text" is your actual code
-	.align 2 #directive that aligns all labels in memory, ignore this for now
-    .globl main #Speficies that "main" is the starting label for this program
 main:
-  li $s0, 10
-  addi $a0, $zero, 5  #Setting values to pass to f
-  addi $a1, $zero, 10 
-  addi $a2, $zero, 20 
+  addi $a0, $zero, 7
   jal f
-  add $s0, $zero, $v0 #a = return of j
-  sw $a0, 0($sp)
-  sw $a1, 4($sp)
-  sw $a2, 8($sp)
-  sw $s0, 12($sp)
-
+  add $s0, $zero, $v0 #s0(a) = f(int)
+  sw $s0, 0($zero)
   j end
-
 end:
   j end
   li $v0, 10 #These two lines cause QTSPIM to not error when your program ends
   syscall #Don't worry about them now, we'll understand what they do later.
-
-f: 
-# int f(int a, int b, int c) {
-#         int s = 0;
-#         for (int i = a ; i < b ; i++) {
-#           for (int j = i ; j < c ; j++) {
-#             s += g(i,j);
-#           }
-#         }
-#         return s;
-#       }
-  addi $sp, $sp, -32 #lower $sp to hold 5 variables
-  sw $ra, 0($sp)  #save the values in registers that we will change
-  sw $s0, 4($sp)  #int a/i
-  sw $s1, 8($sp)  #int b
-  sw $s2, 12($sp) #int c
-  sw $s3, 16($sp) #loop 1 conditional
-  sw $s4, 20($sp) #loop 2 conditional
-  sw $s5, 24($sp) #j = i
-  sw $s6, 28($sp) #s count
-
-  add $s0, $zero, $a0 #save a registers to s registers
-  add $s1, $zero, $a1
-  add $s2, $zero, $a2
-loopstart1:
-  slt $s3, $s0, $s1   #t1 is T if $s0(i) < $s1(b) (and we keep going)
-  beq $s3, $zero, loopend1
-  add $s5, $zero, $s0 #j = i
-  loopstart2:
-    slt $s4, $s5, $s2   #s4 is T if $s5(j) < $s2(c) (and we keep going)
-    beq $s4, $zero, loopend2
-    add $a0, $zero, $s0 #set arguments for g
-    add $a1, $zero, $s5
-    jal g
-    add $s6, $s6, $v0 #s += g(i, j)
-    addi $s5, $s5, 1 #$s5(j)++
-    j loopstart2
-  loopend2:
-  addi $s0, $s0, 1 #s0(i)++
-  j loopstart1
-       
-loopend1:
-  add $v0, $zero, $s6 #return s
-  lw $ra, 0($sp)  #save the values in registers that we will change
-  lw $s0, 4($sp)
-  lw $s1, 8($sp)
-  lw $s2, 12($sp)
-  lw $s3, 16($sp) 
-  lw $s4, 20($sp) 
-  sw $s5, 24($sp)
-  lw $s6, 28($sp)
-  addi $sp, $sp, 32 #restore stack pointer
-  jr $ra
-
-# int g(int a, int b) {
-#         return a + b + 4;
-#       }
-g:
-  add $t0, $a0, $a1
-  addi $t0, $t0, 4
-  add $v0, $zero, $t0
-  jr $ra
+f:
+  addi $sp, $sp, -20
+  sw $ra, 0($sp) #save $ra
+  sw $s0, 4($sp) #save $s0
+  sw $s1, 8($sp) #save $s1, result 
+  sw $s2, 12($sp) #save $s2, i
+  sw $s3, 16($sp) #s3
+  add $s0, $zero, $a0
+  bne $s0, $zero, notEqual #jump to notEqual if a != 0
+  addi $v0, $zero, 1 #return 1
+  j returnf
+  notEqual:
+  add $s1, $zero, $zero #result = 0
+  add $s2, $zero, $zero #i = 0
+  loopstart:
+    slt $s3, $s2, $s0   #s3 is T if $s2(i) < $s0(a) (and we keep going)
+    beq $s3, $zero, loopend
+    add $a0, $zero, $s2 #a0 = s2(i)
+    jal f
+    add $s1, $s1, $v0 #result += f(s2)
+    addi $s2, $s2, 1 #i++
+    j loopstart
+  loopend:
+  add $v0, $zero, $s1 #save result to return
+  j returnf
+  returnf:
+    lw $ra, 0($sp) #load $ra
+    lw $s0, 4($sp) #load s0
+    lw $s1, 8($sp) #save s1
+    lw $s2, 12($sp) #load s2
+    lw $s3, 16($sp) #save $s2, i
+    addi $sp, $sp, 20 #restore $sp
+    jr $ra

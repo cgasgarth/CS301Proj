@@ -34,20 +34,20 @@ int main(int argc, char** argv){
     while(getline(infile, line)){
         int i = 0;
         bool space = true;
-        while((i < line.length()) && (line[i] != '#') && (line[i] != '\r')){
-            if (&line[i] != " "){
-                space = true;
-            }
-            if(space == true){
-                instruction += line[i];
-                }
+        while((i < line.length()) && (line[i] != '#') && (line[i] != '\r') && (line[i] != '\t') && (line[i] != '.')){
+            // if (&line[i] != " "){
+            //     space = true;
+            // }
+            // if(space == true){
+            //     instruction += line[i];
+            //     }
+            instruction += line[i];
             i++;
             }
         if(instruction.length() > 1){
             binaryOut = c.lineTakeIn(instruction, curLine);
             for (string j: binaryOut){
-                if(j == "Label"){}
-                else {
+                if(j != "Label") {
                     tempFile << j << endl;
                     curLine ++;
                 }
