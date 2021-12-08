@@ -4,7 +4,7 @@
 main:
   addi $a0, $zero, 2  #Setting values to pass to f
   addi $a1, $zero, 4
-  addi $a2, $zero, 5
+  addi $a2, $zero, 5 #test change
   jal f
   add $s0, $zero, $v0 #a = return of j
   sw $s0, 0($zero)
