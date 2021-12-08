@@ -31,11 +31,15 @@ Compare
 *.a
 *.lib
 
+#MIPS and out
+out*.txt
+/MIPScode
 # Executables
 *.exe
 *.out
 *.app
 #vscode
+.vscode/
 .vscode/settings.json
 .vscode/settings.json
 Compiler/out.txt
