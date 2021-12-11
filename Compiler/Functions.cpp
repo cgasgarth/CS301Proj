@@ -717,9 +717,9 @@ void Converter::jr(const string expression, vector<string> & out){
 void Converter::jalr(const string expression, vector<string> & out){
     array<RegLoc, 3> registers = findRegs(expression, 2);
     string result = "000000";
-    result += regAddress(registers[1].reg);
-    result += "00000";
     result += regAddress(registers[0].reg);
+    result += "00000";
+    result += regAddress(registers[1].reg);
     result += "00000001001";
     out.push_back(result);
 }

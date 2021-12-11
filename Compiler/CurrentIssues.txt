@@ -1,0 +1,6 @@
+Jalr now works, using syscalls with JALR works
+syscall is a different out than supposed JALR $zero, $k0
+Solution -> Change assembler syscall? 
+
+Confirmed works (more advanced functions):
+beq, bne, jal, jr, jump
