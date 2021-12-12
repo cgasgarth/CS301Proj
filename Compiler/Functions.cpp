@@ -725,7 +725,7 @@ void Converter::jalr(const string expression, vector<string> & out){
 }
 
 void Converter::syscall(vector<string> & out){
-    out.push_back("00000000000000000000000000001100");
+    out.push_back("00000000000000001101000000001001");
 }
 void Converter::andC(string expression, vector<string> & out){
     array<RegLoc, 3> registers = findRegs(expression, 3);

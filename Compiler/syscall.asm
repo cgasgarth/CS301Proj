@@ -34,9 +34,8 @@ beq $v0, $zero, syscall12Start
 jr $k0
 main:
 addi $v0, $zero, 12
-jalr $zero, $k0
+syscall
 
 add $a0, $zero, $v0
 addi $v0, $zero, 11
-jalr $zero, $k0
-j main
+syscall
