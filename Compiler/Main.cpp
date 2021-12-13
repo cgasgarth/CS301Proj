@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <regex>
 #include <string>
 #include <vector>
 #include "Functions.h"
@@ -33,14 +34,8 @@ int main(int argc, char** argv){
     int curLine = 0;
     while(getline(infile, line)){
         int i = 0;
-        bool space = true;
+        line = std::regex_replace(line, std::regex("^ +| +$|( ) +"), "$1");
         while((i < line.length()) && (line[i] != '#') && (line[i] != '\r') && (line[i] != '\t') && (line[i] != '.')){
-            // if (&line[i] != " "){
-            //     space = true;
-            // }
-            // if(space == true){
-            //     instruction += line[i];
-            //     }
             instruction += line[i];
             i++;
             }

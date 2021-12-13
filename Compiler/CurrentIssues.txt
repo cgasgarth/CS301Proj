@@ -4,3 +4,5 @@ Solution -> Change assembler syscall?
 
 Confirmed works (more advanced functions):
 beq, bne, jal, jr, jump
+
+Have to use ! to mark end of taking a number in for syscall1
