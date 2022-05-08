@@ -17,7 +17,6 @@ struct label{
 };
 class Converter { //648 or A-51 in book
     public:
-    int curLine;
     array<string, 96> regList = {"$R0","$zero","$0","R1","$at","$1", 
                                  "$R2","$v0","$2","$R3","$v1","$3",
                                  "$R4","$a0","$4","$R5","$a1","$5",
