@@ -3,7 +3,7 @@
 # *****************************************************
 # Variables to control Makefile operation
 
-CC = g++ -std=c++17 
+CC = g++ -std=c++17
 CFLAGS = -Wall -g 
 
 # ****************************************************
@@ -12,8 +12,6 @@ CFLAGS = -Wall -g
 ASSEMBLE: Main.o Functions.o
 	$(CC) $(CFLAGS) -o ASSEMBLE Main.o Functions.o
 	rm Main.o Functions.o
-
-# The main.o target can be written more simply
 
 main.o: main.cpp Functions.h
 	$(CC) $(CFLAGS) -c main.cpp
