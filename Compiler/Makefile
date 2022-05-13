@@ -3,20 +3,22 @@
 # *****************************************************
 # Variables to control Makefile operation
 
-CC = g++ -std=c++17
+CC = g++ -std=c++20
 CFLAGS = -Wall -g 
 
 # ****************************************************
 # Targets needed to bring the executable up to date
+all: ASSEMBLE
 
 ASSEMBLE: Main.o Functions.o
 	$(CC) $(CFLAGS) -o ASSEMBLE Main.o Functions.o
 	rm Main.o Functions.o
 
-main.o: main.cpp Functions.h
+Main.o: main.cpp Functions.o Functions.h
 	$(CC) $(CFLAGS) -c main.cpp
 
-Functions.o: Functions.h
+Functions.o: Functions.cpp Functions.h
+	$(CC) $(CFLAGS) -c Functions.cpp
 
 clean: 
 	rm ASSEMBLE

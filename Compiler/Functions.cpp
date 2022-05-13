@@ -343,7 +343,7 @@ string Converter::findReg(string expression, int stringI, int i){
     return "FindRegError";
 }
 
-string Converter::intToString(string intString, int totalLen){
+string Converter::intToBinaryString(string intString, int totalLen){
     int n = stoi(intString);
     if(n < 0) {
         n += pow(2, totalLen);
@@ -359,7 +359,7 @@ string Converter::intToString(string intString, int totalLen){
     return buffer;
 }
 
-string Converter::intToString(int i, int totalLen){
+string Converter::intToBinaryString(int i, int totalLen){
     if(i < 0) {
         i += pow(2, totalLen);
     }
@@ -383,27 +383,27 @@ void Converter::setJumps(){
         if (line.substr(0, 6) == "000100"){ // beq ND
             struct label label = setJumpsLH(line);
             int offset = label.line - curLine;
-            line.replace(line.find("|"), label.name.length() + 1, intToString(offset, 16));
-            outfile << line << endl;
+            line.replace(line.find("|"), label.name.length() + 1, intToBinaryString(offset, 16));
+            outfile << line << "\n";
         }
         else if(line.substr(0, 6) == "000101"){ //bne
             struct label label= setJumpsLH(line);
             int offset = label.line - curLine;
-            line.replace(line.find("|"), label.name.length() + 1, intToString(offset, 16));
-            outfile << line << endl;
+            line.replace(line.find("|"), label.name.length() + 1, intToBinaryString(offset, 16));
+            outfile << line << "\n";
         }
         else if(line.substr(0, 6) == "000010"){ // jump ND
             struct label label= setJumpsLH(line);
-            line.replace(line.find("|"), label.name.length() + 1, intToString(label.line, 26));
-            outfile << line << endl;
+            line.replace(line.find("|"), label.name.length() + 1, intToBinaryString(label.line, 26));
+            outfile << line << "\n";
         }
         else if(line.substr(0, 6) == "000011"){ //jal ND
             struct label label= setJumpsLH(line);
-            line.replace(line.find("|"), label.name.length() + 1, intToString(label.line, 26));
-            outfile << line << endl;
+            line.replace(line.find("|"), label.name.length() + 1, intToBinaryString(label.line, 26));
+            outfile << line << "\n";
         }
         else {
-            outfile << line << endl;
+            outfile << line << "\n";
         }
         curLine++;             
     }
@@ -432,10 +432,10 @@ label Converter::setJumpsLH(string expression){
 void Converter::convertToHex(int argc, char* argv[]){
     ifstream infile("hexTemp.txt");
     ofstream outfile(argv[2]);
-    outfile << "v3.0 hex words plain" << endl;
+    outfile << "v3.0 hex words plain" << "\n";
     string line;
     while(getline(infile, line)){
-        outfile << binaryToHex(line) << endl;
+        outfile << binaryToHex(line) << "\n";
     }
     remove("hexTemp.txt");
 }
@@ -509,12 +509,12 @@ void Converter::add(const string expression, vector<string> & out){
 
 void Converter::addi(const string expression, vector<string> & out){
     string immediate;
-    int immediateI;
+    int immediateI = 0;
     array<RegLoc, 3> registers = findRegs(expression, 2);
     for(int i = (expression.length() - 1); i >= 0; i--){
         if(isspace(expression.at(i))){
             immediateI = stoi(expression.substr(i, expression.length() - 1));
-            immediate = intToString(expression.substr(i, expression.length() - 1), 16);
+            immediate = intToBinaryString(expression.substr(i, expression.length() - 1), 16);
             break;
         }
     }
@@ -601,7 +601,7 @@ void Converter::sll(const string expression, vector<string> & out){
     string immediate;
     for(int i = (expression.length() - 1); i >= 0; i--){
         if(isspace(expression.at(i))){
-            immediate = intToString(expression.substr(i, expression.length() - 1), 5);
+            immediate = intToBinaryString(expression.substr(i, expression.length() - 1), 5);
             break;
         }
     }
@@ -618,7 +618,7 @@ void Converter::srl(const string expression, vector<string> & out){
     string immediate;
     for(int i = (expression.length() - 1); i >= 0; i--){
         if(isspace(expression.at(i))){
-            immediate = intToString(expression.substr(i, expression.length() - 1), 5);
+            immediate = intToBinaryString(expression.substr(i, expression.length() - 1), 5);
             break;
         }
     }
@@ -637,7 +637,7 @@ void Converter::lw(const string expression, vector<string> & out){
     for(int i = (expression.length() - 1); i >= 0; i--){
         if(expression.at(i) == '('){ leftPar = i; }
         if(isspace(expression.at(i))){
-            immediate = intToString(expression.substr(i, leftPar), 16);
+            immediate = intToBinaryString(expression.substr(i, leftPar), 16);
             break;
         }
     }
@@ -655,7 +655,7 @@ void Converter::sw(const string expression, vector<string> & out){
     for(int i = (expression.length() - 1); i >= 0; i--){
         if(expression.at(i) == '('){ leftPar = i; }
         if(isspace(expression.at(i))){
-            immediate = intToString(expression.substr(i, leftPar), 16);
+            immediate = intToBinaryString(expression.substr(i, leftPar), 16);
             break;
         }
     }
@@ -763,12 +763,12 @@ void Converter::xorC(string expression, vector<string> & out){
 }
 void Converter::andiC(string expression, vector<string> & out){
     string immediate;
-    int immediateI;
+    int immediateI = 0;
     array<RegLoc, 3> registers = findRegs(expression, 2);
     for(int i = (expression.length() - 1); i >= 0; i--){
         if(isspace(expression.at(i))){
             immediateI = stoi(expression.substr(i, expression.length() - 1));
-            immediate = intToString(expression.substr(i, expression.length() - 1), 16);
+            immediate = intToBinaryString(expression.substr(i, expression.length() - 1), 16);
             break;
         }
     }
@@ -785,7 +785,7 @@ void Converter::oriC(string expression, vector<string> & out){
     for(int i = (expression.length() - 1); i >= 0; i--){
         if(isspace(expression.at(i))){
             immediateI = stoi(expression.substr(i, expression.length() - 1));
-            immediate = intToString(expression.substr(i, expression.length() - 1), 16);
+            immediate = intToBinaryString(expression.substr(i, expression.length() - 1), 16);
             break;
         }
     }
@@ -802,7 +802,7 @@ void Converter::xoriC(string expression, vector<string> & out){
     for(int i = (expression.length() - 1); i >= 0; i--){
         if(isspace(expression.at(i))){
             immediateI = stoi(expression.substr(i, expression.length() - 1));
-            immediate = intToString(expression.substr(i, expression.length() - 1), 16);
+            immediate = intToBinaryString(expression.substr(i, expression.length() - 1), 16);
             break;
         }
     }
