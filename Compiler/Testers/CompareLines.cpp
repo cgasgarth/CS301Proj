@@ -13,13 +13,13 @@ int main(int argc, char **argv){
     int lineNum = 1;
     while(getline(in1, line1)){
         getline(in2, line2);
-        cout << lineNum << " " << line1 << " " << line2 << endl;
+        cout << lineNum << " " << line1 << " " << line2 << "\n";
         line1 = line1.substr(0, line1.length()-0);
         line2 = line2.substr(0, line2.length()-1);
         to_upper(line1);
         to_upper(line2);
         if(line1!=line2){
-            //cout << lineNum << endl;
+            //cout << lineNum << "\n";
         }
         lineNum ++;
     }

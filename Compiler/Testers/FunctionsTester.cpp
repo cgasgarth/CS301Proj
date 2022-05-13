@@ -13,7 +13,7 @@ int main(int argc, char** argv){
     out.insert(out.end(), lineOut.begin(), lineOut.end());
     for (vector<string>::iterator t = out.begin(); t != out.end(); ++t) 
     {
-        cout<<*t<<endl;
+        cout<<*t<<"\n";
     }
 
     return 0;
