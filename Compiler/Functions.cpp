@@ -763,11 +763,11 @@ void Converter::xorC(string expression, vector<string> & out){
 }
 void Converter::andiC(string expression, vector<string> & out){
     string immediate;
-    int immediateI = 0;
+    // int immediateI = 0;
     array<RegLoc, 3> registers = findRegs(expression, 2);
     for(int i = (expression.length() - 1); i >= 0; i--){
         if(isspace(expression.at(i))){
-            immediateI = stoi(expression.substr(i, expression.length() - 1));
+            // immediateI = stoi(expression.substr(i, expression.length() - 1));
             immediate = intToBinaryString(expression.substr(i, expression.length() - 1), 16);
             break;
         }
@@ -780,11 +780,11 @@ void Converter::andiC(string expression, vector<string> & out){
 }
 void Converter::oriC(string expression, vector<string> & out){
     string immediate;
-    int immediateI;
+    // int immediateI;
     array<RegLoc, 3> registers = findRegs(expression, 2);
     for(int i = (expression.length() - 1); i >= 0; i--){
         if(isspace(expression.at(i))){
-            immediateI = stoi(expression.substr(i, expression.length() - 1));
+            // immediateI = stoi(expression.substr(i, expression.length() - 1));
             immediate = intToBinaryString(expression.substr(i, expression.length() - 1), 16);
             break;
         }
@@ -797,11 +797,11 @@ void Converter::oriC(string expression, vector<string> & out){
 }
 void Converter::xoriC(string expression, vector<string> & out){
     string immediate;
-    int immediateI;
+    // int immediateI;
     array<RegLoc, 3> registers = findRegs(expression, 2);
     for(int i = (expression.length() - 1); i >= 0; i--){
         if(isspace(expression.at(i))){
-            immediateI = stoi(expression.substr(i, expression.length() - 1));
+            // immediateI = stoi(expression.substr(i, expression.length() - 1));
             immediate = intToBinaryString(expression.substr(i, expression.length() - 1), 16);
             break;
         }

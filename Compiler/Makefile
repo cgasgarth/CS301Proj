@@ -4,7 +4,7 @@
 # Variables to control Makefile operation
 
 CC = g++ -std=c++20
-CFLAGS = -Wall -g 
+CFLAGS = -Wall -g -O3
 
 # ****************************************************
 # Targets needed to bring the executable up to date

@@ -73,3 +73,18 @@ main:
     add $a0, $zero, $v0
     addi $v0, $zero, 11
     syscall
+    beq $v0, $zero, main
+    li $at, 1
+    beq $v0, $at, syscall1 #syscall1
+    li $at, 5
+    beq $v0, $at, syscall5 #syscall5
+    li $at, 9
+    beq $v0, $at, syscall9 #syscall9
+    li $at, 10
+    beq $v0, $at, syscall10 #syscall9
+    li $at, 11
+    beq $v0, $at, syscall11 #syscall11
+    li $at, 12
+    beq $v0, $at, syscall12 #syscall12
+    jr $k0beq $v0, $zero, main
+    li $at, 1
