@@ -43,3 +43,5 @@ Compiler/MIPScode
 .vscode/settings.json
 Compiler/.DS_Store
 .DS_Store
+Compiler/test.py
+Compiler/test.asm

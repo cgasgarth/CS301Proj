@@ -12,4 +12,3 @@ Then convert to hex.
 Functions.h: uses lineTakeIn(string expression, int lineNum) to bring in line
 Expression can come in as long as it doesnt have comments with it, functions.h will clean the expression. 
 Binary will be treated as strings. 
-
