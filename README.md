@@ -1,6 +1,9 @@
 # CS301Proj
+##Usage
+Run the makefile to generate ASSEMBLE, then run ./ASSEMBLE [in.asm] [out.txt]
 
-Compiler structure: 
+
+##Compiler structure: 
 Main method, reads each line, if line valid attempt at function passes it onto Function.h as total string, Functions.h will return "UNDEFINED COMMAND" in vector if command is not valid. 
 
 Function.h returns a vector containing binary strings of translated command to main; main writes it to out file, keeping track of the lines written. 
